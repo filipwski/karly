@@ -1,0 +1,6 @@
+﻿services:
+  karly.api:
+    image: karly.api
+    build:
+      context: .
+      dockerfile: Karly.Api/Dockerfile
