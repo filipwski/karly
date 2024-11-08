@@ -1,13 +1,16 @@
 using Karly.Application.Database;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Karly.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSqlDbContext(this IServiceCollection services)
+    public static IServiceCollection AddSqlDbContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<KarlyDbContext>();
+        var connectionString = configuration.GetConnectionString("KarlyDbContext");
+        services.AddDbContext<KarlyDbContext>(options => options.UseSqlServer(connectionString));
         return services;
     }
 }
