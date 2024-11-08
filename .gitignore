@@ -1,0 +1,103 @@
+# Ignore build output
+bin/
+obj/
+
+# Rider specific files
+.idea/
+*.sln.iml
+.idea_modules/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Auto-generated files
+*.log
+*.vspscc
+*.vssscc
+
+# Package directories
+packages/
+**/packages/*
+.vscode/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# macOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows specific files
+.DS_Store?
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Linux specific files
+*~
+
+# Rider plugin folders
+.idea/
+.idea_modules/
+
+# Temporary files
+*.tmp
+*.temp
+*.TMP
+*.TEMP
+
+# Local NuGet packages
+*.nupkg
+*.snupkg
+
+# Rider workspace
+*.sln.DotSettings
+*.sln.DotSettings.user
+
+# Dotnet local user secrets
+secrets.json
+
+# Dotnet tools
+**/.dotnet_tools/**
+
+# Logs
+**/*.log
+
+# Coverage
+coverage/
+TestResults/
+
+# Resharper files
+_ReSharper*/
+
+# Dependency directories
+node_modules/
+
+# Publish output
+wwwroot/
+dist/
+
+# Database files
+*.mdf
+*.ldf
+
+# Config files containing sensitive information
+# appsettings*.json
+# appsettings*.Development.json
+# appsettings*.Local.json
+# appsettings*.Secrets.json
+
+# Rider settings
+.idea/
+.idea_modules/
