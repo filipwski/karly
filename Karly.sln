@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5F05F4CF-709
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karly.Api", "src\Karly.Api\Karly.Api.csproj", "{244CA945-5186-474D-9E3B-AD34FEEE09EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Karly.Application", "src\Karly.Application\Karly.Application.csproj", "{B151CC74-255E-463D-AF6A-0D9CA2FCFA70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{244CA945-5186-474D-9E3B-AD34FEEE09EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244CA945-5186-474D-9E3B-AD34FEEE09EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244CA945-5186-474D-9E3B-AD34FEEE09EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B151CC74-255E-463D-AF6A-0D9CA2FCFA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B151CC74-255E-463D-AF6A-0D9CA2FCFA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B151CC74-255E-463D-AF6A-0D9CA2FCFA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B151CC74-255E-463D-AF6A-0D9CA2FCFA70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{244CA945-5186-474D-9E3B-AD34FEEE09EC} = {5F05F4CF-7097-4545-9311-37D47506807B}
+		{B151CC74-255E-463D-AF6A-0D9CA2FCFA70} = {5F05F4CF-7097-4545-9311-37D47506807B}
 	EndGlobalSection
 EndGlobal

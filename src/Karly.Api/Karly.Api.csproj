@@ -17,4 +17,8 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Karly.Application\Karly.Application.csproj" />
+    </ItemGroup>
+
 </Project>
