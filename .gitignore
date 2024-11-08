@@ -1,8 +1,6 @@
-# Ignore build output
-bin/*
-obj/*
-**/obj/**/*
-**/bin/**/*
+# Ignore build outputo
+**/obj/
+**/bin/
 
 # Rider specific files
 .idea/
