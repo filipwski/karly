@@ -1,27 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/Users/filip.skibinski@schibsted.com/Developer/TechJump/karly/src/Karly.Api/Karly.Api.csproj": {}
+    "/Users/marcin.cholewka@schibsted.com/repos/courses/karly/src/Karly.Api/Karly.Api.csproj": {}
   },
   "projects": {
-    "/Users/filip.skibinski@schibsted.com/Developer/TechJump/karly/src/Karly.Api/Karly.Api.csproj": {
+    "/Users/marcin.cholewka@schibsted.com/repos/courses/karly/src/Karly.Api/Karly.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/filip.skibinski@schibsted.com/Developer/TechJump/karly/src/Karly.Api/Karly.Api.csproj",
+        "projectUniqueName": "/Users/marcin.cholewka@schibsted.com/repos/courses/karly/src/Karly.Api/Karly.Api.csproj",
         "projectName": "Karly.Api",
-        "projectPath": "/Users/filip.skibinski@schibsted.com/Developer/TechJump/karly/src/Karly.Api/Karly.Api.csproj",
-        "packagesPath": "/Users/filip.skibinski@schibsted.com/.nuget/packages/",
-        "outputPath": "/Users/filip.skibinski@schibsted.com/Developer/TechJump/karly/src/Karly.Api/obj/",
+        "projectPath": "/Users/marcin.cholewka@schibsted.com/repos/courses/karly/src/Karly.Api/Karly.Api.csproj",
+        "packagesPath": "/Users/marcin.cholewka@schibsted.com/.nuget/packages/",
+        "outputPath": "/Users/marcin.cholewka@schibsted.com/repos/courses/karly/src/Karly.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/filip.skibinski@schibsted.com/.nuget/NuGet/NuGet.Config"
+          "/Users/marcin.cholewka@schibsted.com/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "/Users/marcin.cholewka@schibsted.com/repos/local-nuget": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://artifacts.schibsted.io/artifactory/api/nuget/nuget-smd-packages": {}
+          "https://artifacts.schibsted.io/artifactory/api/nuget/nuget-local": {}
         },
         "frameworks": {
           "net8.0": {
@@ -68,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
