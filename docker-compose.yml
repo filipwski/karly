@@ -1,6 +1,7 @@
-﻿services:
+services:
   karly.api:
-    image: karly.api
     build:
       context: .
-      dockerfile: Karly.Api/Dockerfile
+      dockerfile: ./src/Karly.Api/Dockerfile
+    ports:
+      - "8080:8080"
