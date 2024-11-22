@@ -14,6 +14,11 @@ public class KarlyDbContext : DbContext
     
     public DbSet<SampleEntity> SampleEntities { get; set; }
     
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("KarlyDbContext"));
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<SampleEntity>().ToTable(nameof(SampleEntity));

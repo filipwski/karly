@@ -11,14 +11,14 @@
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="DATABASE_PORT" />
-              <option name="value" value="1433" />
+              <option name="value" value="5432" />
             </DockerEnvVarImpl>
           </list>
         </option>
         <option name="services">
           <list>
             <option value="karly.api" />
-            <option value="mssql" />
+            <option value="database" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

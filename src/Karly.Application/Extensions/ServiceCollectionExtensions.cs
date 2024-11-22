@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSqlDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("KarlyDbContext");
-        services.AddDbContext<KarlyDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<KarlyDbContext>(options => options.UseNpgsql(connectionString));
         return services;
     }
 }
