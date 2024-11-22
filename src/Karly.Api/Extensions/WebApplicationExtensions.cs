@@ -16,13 +16,13 @@ public static class WebApplicationExtensions
         {
             return app;
         }
-        
-        app.Logger.LogInformation("Ensuring created.");
-        dbContext.Database.EnsureCreated();
     
         app.Logger.LogInformation("Executing migrations.");
         dbContext.Database.Migrate();
     
+        app.Logger.LogInformation("Ensuring created.");
+        dbContext.Database.EnsureCreated();
+        
         return app;
     }
 }
