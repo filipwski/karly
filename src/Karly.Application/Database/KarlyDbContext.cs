@@ -1,32 +1,21 @@
+using Karly.Application.Database.EntityMapping;
+using Karly.Application.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Karly.Application.Database;
 
-public class KarlyDbContext : DbContext
+public class KarlyDbContext(IConfiguration configuration) : DbContext
 {
-    private readonly IConfiguration _configuration;
-    
-    public KarlyDbContext(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
-    
-    public DbSet<SampleEntity> SampleEntities { get; set; }
+    public DbSet<Car> Cars => Set<Car>();
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(_configuration.GetConnectionString("KarlyDbContext"));
+        optionsBuilder.UseNpgsql(configuration.GetConnectionString("KarlyDbContext"));
     }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<SampleEntity>().ToTable(nameof(SampleEntity));
+        modelBuilder.ApplyConfiguration(new CarMapping());
     }
-}
-
-public class SampleEntity
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
 }

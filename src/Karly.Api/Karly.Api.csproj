@@ -8,6 +8,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -19,6 +23,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Karly.Application\Karly.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="core" />
     </ItemGroup>
 
 </Project>
