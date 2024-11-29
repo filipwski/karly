@@ -19,17 +19,13 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
         {
             optionsBuilder.UseSeeding((context, _) =>
             {
-                var car = context.Set<Car>().First();
-                if (car != null) return;
+                if (context.Set<Car>().FirstOrDefault() != null) return;
                 
-                var jsonPath = Path.Combine(
-                    Directory
-                        .GetParent(Directory.GetCurrentDirectory())
-                        .GetDirectories()
-                        .First(dir => dir.Name.Contains("Application")).FullName,
-                    "Database/Resources/ExampleCars.json");
-                var jsonString = File.ReadAllText(jsonPath);
+                var jsonString = File.ReadAllText(Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "../Karly.Application/Database/Resources/ExampleCars.json"));
                 var carList = JsonSerializer.Deserialize<List<Car>>(jsonString);
+                if (carList == null) return;
 
                 context.Set<Car>().AddRange(carList);
                 context.SaveChanges();
