@@ -28,5 +28,10 @@ public class CarMapping : IEntityTypeConfiguration<Car>
             .HasColumnType("text")
             .HasMaxLength(250)
             .IsRequired();
+        
+        builder
+            .Property(x => x.Price)
+            .HasColumnType("float")
+            .IsRequired();
     }
 }

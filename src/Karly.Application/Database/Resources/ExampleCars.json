@@ -3,240 +3,280 @@
     "Id": "d3b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6a",
     "Model": "Toyota Corolla",
     "ProductionYear": 2020,
-    "Description": "A reliable compact car with excellent fuel efficiency and a comfortable interior. Ideal for commuters and small families looking for an economical and dependable vehicle."
+    "Description": "A reliable compact car with excellent fuel efficiency and a comfortable interior. Ideal for commuters and small families looking for an economical and dependable vehicle. Typically priced in the affordable range.",
+    "Price": 20000.0
   },
   {
     "Id": "e4b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6b",
     "Model": "Honda Civic",
     "ProductionYear": 2019,
-    "Description": "A sporty sedan with a sleek design and advanced safety features. Perfect for young professionals and small families who value style and safety."
+    "Description": "A sporty sedan with a sleek design and advanced safety features. Perfect for young professionals and small families who value style and safety. Generally falls within the mid-range price bracket.",
+    "Price": 22000.0
   },
   {
     "Id": "f5b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6c",
     "Model": "Ford Mustang",
     "ProductionYear": 2021,
-    "Description": "A powerful muscle car with a V8 engine and iconic styling. Great for car enthusiasts and those who crave performance and a thrilling driving experience."
+    "Description": "A powerful muscle car with a V8 engine and iconic styling. Great for car enthusiasts and those who crave performance and a thrilling driving experience. Typically priced in the higher range.",
+    "Price": 55000.0
   },
   {
     "Id": "g6b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6d",
     "Model": "Chevrolet Camaro",
     "ProductionYear": 2018,
-    "Description": "A high-performance sports car with aggressive looks and a turbocharged engine. Suited for drivers who want a combination of power and style."
+    "Description": "A high-performance sports car with aggressive looks and a turbocharged engine. Suited for drivers who want a combination of power and style. Generally falls within the mid to high price range.",
+    "Price": 40000.0
   },
   {
     "Id": "h7b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6e",
     "Model": "Tesla Model S",
     "ProductionYear": 2022,
-    "Description": "A luxury electric sedan with cutting-edge technology and impressive range. Ideal for tech-savvy individuals and eco-conscious drivers seeking luxury and performance."
+    "Description": "A luxury electric sedan with cutting-edge technology and impressive range. Ideal for tech-savvy individuals and eco-conscious drivers seeking luxury and performance. Typically priced in the premium range.",
+    "Price": 80000.0
   },
   {
     "Id": "i8b07384-d9a7-4c8b-8f8e-1e4e4f5e6a6f",
     "Model": "BMW 3 Series",
     "ProductionYear": 2020,
-    "Description": "A premium compact car with a refined interior and dynamic driving experience. Perfect for professionals and small families who appreciate luxury and performance."
+    "Description": "A premium compact car with a refined interior and dynamic driving experience. Perfect for professionals and small families who appreciate luxury and performance. Generally falls within the higher mid-range price bracket.",
+    "Price": 41000.0
   },
   {
     "Id": "j9b07384-d9a7-4c8b-8f8e-1e4e4f5e6a70",
     "Model": "Audi A4",
     "ProductionYear": 2019,
-    "Description": "A stylish sedan with a high-quality interior and advanced infotainment system. Ideal for those who value technology and a premium driving experience."
+    "Description": "A stylish sedan with a high-quality interior and advanced infotainment system. Ideal for those who value technology and a premium driving experience. Typically priced in the higher mid-range.",
+    "Price": 39000.0
   },
   {
     "Id": "k0b07384-d9a7-4c8b-8f8e-1e4e4f5e6a71",
     "Model": "Mercedes-Benz C-Class",
     "ProductionYear": 2021,
-    "Description": "A luxury sedan with a smooth ride and a host of high-tech features. Perfect for executives and professionals seeking comfort and sophistication."
+    "Description": "A luxury sedan with a smooth ride and a host of high-tech features. Perfect for executives and professionals seeking comfort and sophistication. Generally falls within the premium price range.",
+    "Price": 42000.0
   },
   {
     "Id": "l1b07384-d9a7-4c8b-8f8e-1e4e4f5e6a72",
     "Model": "Volkswagen Golf",
     "ProductionYear": 2018,
-    "Description": "A versatile hatchback with a spacious interior and efficient engine options. Great for small families and individuals who need practicality and efficiency."
+    "Description": "A versatile hatchback with a spacious interior and efficient engine options. Great for small families and individuals who need practicality and efficiency. Typically priced in the affordable to mid-range.",
+    "Price": 25000.0
   },
   {
     "Id": "m2b07384-d9a7-4c8b-8f8e-1e4e4f5e6a73",
     "Model": "Subaru Outback",
     "ProductionYear": 2020,
-    "Description": "A rugged crossover with all-wheel drive and ample cargo space. Ideal for outdoor enthusiasts and families who need a reliable and versatile vehicle."
+    "Description": "A rugged crossover with all-wheel drive and ample cargo space. Ideal for outdoor enthusiasts and families who need a reliable and versatile vehicle. Generally falls within the mid-range price bracket.",
+    "Price": 30000.0
   },
   {
     "Id": "n3b07384-d9a7-4c8b-8f8e-1e4e4f5e6a74",
     "Model": "Mazda CX-5",
     "ProductionYear": 2019,
-    "Description": "A compact SUV with sporty handling and a stylish design. Perfect for small families and individuals who want a fun-to-drive and practical vehicle."
+    "Description": "A compact SUV with sporty handling and a stylish design. Perfect for small families and individuals who want a fun-to-drive and practical vehicle. Typically priced in the mid-range.",
+    "Price": 28000.0
   },
   {
     "Id": "o4b07384-d9a7-4c8b-8f8e-1e4e4f5e6a75",
     "Model": "Hyundai Elantra",
     "ProductionYear": 2021,
-    "Description": "A compact sedan with a modern look and a suite of advanced safety features. Ideal for young professionals and small families who prioritize safety and style."
+    "Description": "A compact sedan with a modern look and a suite of advanced safety features. Ideal for young professionals and small families who prioritize safety and style. Generally falls within the affordable range.",
+    "Price": 20000.0
   },
   {
     "Id": "p5b07384-d9a7-4c8b-8f8e-1e4e4f5e6a76",
     "Model": "Kia Sorento",
     "ProductionYear": 2020,
-    "Description": "A midsize SUV with three rows of seating and a comfortable ride. Great for larger families who need space and comfort for long trips."
+    "Description": "A midsize SUV with three rows of seating and a comfortable ride. Great for larger families who need space and comfort for long trips. Typically priced in the mid-range.",
+    "Price": 32000.0
   },
   {
     "Id": "q6b07384-d9a7-4c8b-8f8e-1e4e4f5e6a77",
     "Model": "Nissan Altima",
     "ProductionYear": 2019,
-    "Description": "A midsize sedan with a spacious interior and a smooth ride. Perfect for families and individuals who value comfort and reliability."
+    "Description": "A midsize sedan with a spacious interior and a smooth ride. Perfect for families and individuals who value comfort and reliability. Generally falls within the mid-range price bracket.",
+    "Price": 24000.0
   },
   {
     "Id": "r7b07384-d9a7-4c8b-8f8e-1e4e4f5e6a78",
     "Model": "Jeep Wrangler",
     "ProductionYear": 2021,
-    "Description": "An off-road SUV with rugged capabilities and a removable top. Ideal for adventure seekers and off-road enthusiasts who need a capable vehicle."
+    "Description": "An off-road SUV with rugged capabilities and a removable top. Ideal for adventure seekers and off-road enthusiasts who need a capable vehicle. Typically priced in the higher mid-range.",
+    "Price": 35000.0
   },
   {
     "Id": "s8b07384-d9a7-4c8b-8f8e-1e4e4f5e6a79",
     "Model": "Lexus RX",
     "ProductionYear": 2020,
-    "Description": "A luxury SUV with a smooth ride and a well-appointed interior. Perfect for families and individuals who seek luxury and comfort in their daily drives."
+    "Description": "A luxury SUV with a smooth ride and a well-appointed interior. Perfect for families and individuals who seek luxury and comfort in their daily drives. Generally falls within the premium price range.",
+    "Price": 45000.0
   },
   {
     "Id": "t9b07384-d9a7-4c8b-8f8e-1e4e4f5e6a80",
     "Model": "Acura MDX",
     "ProductionYear": 2019,
-    "Description": "A midsize luxury SUV with three rows of seating and advanced safety features. Ideal for larger families who need space and value safety and luxury."
+    "Description": "A midsize luxury SUV with three rows of seating and advanced safety features. Ideal for larger families who need space and value safety and luxury. Typically priced in the higher mid-range.",
+    "Price": 47000.0
   },
   {
     "Id": "u0b07384-d9a7-4c8b-8f8e-1e4e4f5e6a81",
     "Model": "Volvo XC90",
     "ProductionYear": 2021,
-    "Description": "A luxury SUV with a spacious interior and a host of safety features. Perfect for families who prioritize safety and comfort in a premium vehicle."
+    "Description": "A luxury SUV with a spacious interior and a host of safety features. Perfect for families who prioritize safety and comfort in a premium vehicle. Generally falls within the premium price range.",
+    "Price": 56000.0
   },
   {
     "Id": "v1b07384-d9a7-4c8b-8f8e-1e4e4f5e6a82",
     "Model": "Porsche 911",
     "ProductionYear": 2020,
-    "Description": "A high-performance sports car with a powerful engine and iconic design. Ideal for car enthusiasts and those who seek a thrilling driving experience."
+    "Description": "A high-performance sports car with a powerful engine and iconic design. Ideal for car enthusiasts and those who seek a thrilling driving experience. Typically priced in the high-end range.",
+    "Price": 100000.0
   },
   {
     "Id": "w2b07384-d9a7-4c8b-8f8e-1e4e4f5e6a83",
     "Model": "Jaguar F-Type",
     "ProductionYear": 2019,
-    "Description": "A luxury sports car with a sleek design and a powerful engine. Perfect for individuals who value performance and a stylish appearance."
+    "Description": "A luxury sports car with a sleek design and a powerful engine. Perfect for individuals who value performance and a stylish appearance. Generally falls within the high-end price range.",
+    "Price": 90000.0
   },
   {
     "Id": "x3b07384-d9a7-4c8b-8f8e-1e4e4f5e6a84",
     "Model": "Land Rover Range Rover",
     "ProductionYear": 2021,
-    "Description": "A luxury SUV with off-road capabilities and a refined interior. Ideal for those who need a versatile vehicle that combines luxury and ruggedness."
+    "Description": "A luxury SUV with off-road capabilities and a refined interior. Ideal for those who need a versatile vehicle that combines luxury and ruggedness. Typically priced in the premium range.",
+    "Price": 92000.0
   },
   {
     "Id": "y4b07384-d9a7-4c8b-8f8e-1e4e4f5e6a85",
     "Model": "Alfa Romeo Giulia",
     "ProductionYear": 2020,
-    "Description": "A stylish sedan with sporty handling and a powerful engine. Perfect for drivers who appreciate Italian design and a dynamic driving experience."
+    "Description": "A stylish sedan with sporty handling and a powerful engine. Perfect for drivers who appreciate Italian design and a dynamic driving experience. Generally falls within the higher mid-range price bracket.",
+    "Price": 40000.0
   },
   {
     "Id": "z5b07384-d9a7-4c8b-8f8e-1e4e4f5e6a86",
     "Model": "Cadillac Escalade",
     "ProductionYear": 2019,
-    "Description": "A full-size luxury SUV with a spacious interior and a powerful V8 engine. Ideal for large families and individuals who need space and luxury."
+    "Description": "A full-size luxury SUV with a spacious interior and a powerful V8 engine. Ideal for large families and individuals who need space and luxury. Typically priced in the premium range.",
+    "Price": 76000.0
   },
   {
     "Id": "a6b07384-d9a7-4c8b-8f8e-1e4e4f5e6a87",
     "Model": "Infiniti QX60",
     "ProductionYear": 2021,
-    "Description": "A midsize luxury SUV with three rows of seating and a comfortable ride. Perfect for families who need space and value comfort and luxury."
+    "Description": "A midsize luxury SUV with three rows of seating and a comfortable ride. Perfect for families who need space and value comfort and luxury. Generally falls within the higher mid-range price bracket.",
+    "Price": 46000.0
   },
   {
     "Id": "b7b07384-d9a7-4c8b-8f8e-1e4e4f5e6a88",
     "Model": "Lincoln Navigator",
     "ProductionYear": 2020,
-    "Description": "A full-size luxury SUV with a spacious interior and a smooth ride. Ideal for large families and individuals who seek luxury and comfort."
+    "Description": "A full-size luxury SUV with a spacious interior and a smooth ride. Ideal for large families and individuals who seek luxury and comfort. Typically priced in the premium range.",
+    "Price": 81000.0
   },
   {
     "Id": "c8b07384-d9a7-4c8b-8f8e-1e4e4f5e6a89",
     "Model": "Maserati Ghibli",
     "ProductionYear": 2019,
-    "Description": "A luxury sports sedan with a powerful engine and a stylish design. Perfect for those who value performance and Italian craftsmanship."
+    "Description": "A luxury sports sedan with a powerful engine and a stylish design. Perfect for those who value performance and Italian craftsmanship. Generally falls within the premium price range.",
+    "Price": 75000.0
   },
   {
     "Id": "d9b07384-d9a7-4c8b-8f8e-1e4e4f5e6a90",
     "Model": "Bentley Continental GT",
     "ProductionYear": 2021,
-    "Description": "A luxury grand tourer with a powerful engine and a refined interior. Ideal for those who seek a combination of performance and luxury."
+    "Description": "A luxury grand tourer with a powerful engine and a refined interior. Ideal for those who seek a combination of performance and luxury. Typically priced in the high-end range.",
+    "Price": 220000.0
   },
   {
     "Id": "e0b07384-d9a7-4c8b-8f8e-1e4e4f5e6a91",
     "Model": "Rolls-Royce Phantom",
     "ProductionYear": 2020,
-    "Description": "A luxury sedan with a spacious interior and a smooth ride. Perfect for those who seek the ultimate in luxury and comfort."
+    "Description": "A luxury sedan with a spacious interior and a smooth ride. Perfect for those who seek the ultimate in luxury and comfort. Generally falls within the ultra-luxury price range.",
+    "Price": 450000.0
   },
   {
     "Id": "f1b07384-d9a7-4c8b-8f8e-1e4e4f5e6a92",
     "Model": "Aston Martin DB11",
     "ProductionYear": 2019,
-    "Description": "A luxury sports car with a powerful engine and a sleek design. Ideal for those who value performance and British craftsmanship."
+    "Description": "A luxury sports car with a powerful engine and a sleek design. Ideal for those who value performance and British craftsmanship. Typically priced in the high-end range.",
+    "Price": 200000.0
   },
   {
     "Id": "g2b07384-d9a7-4c8b-8f8e-1e4e4f5e6a93",
     "Model": "Ferrari 488",
     "ProductionYear": 2021,
-    "Description": "A high-performance sports car with a powerful engine and an iconic design. Perfect for car enthusiasts and those who seek a thrilling driving experience."
+    "Description": "A high-performance sports car with a powerful engine and an iconic design. Perfect for car enthusiasts and those who seek a thrilling driving experience. Generally falls within the ultra-luxury price range.",
+    "Price": 280000.0
   },
   {
     "Id": "h3b07384-d9a7-4c8b-8f8e-1e4e4f5e6a94",
     "Model": "Lamborghini Huracan",
     "ProductionYear": 2020,
-    "Description": "A high-performance sports car with a powerful engine and a sleek design. Ideal for those who crave performance and a striking appearance."
+    "Description": "A high-performance sports car with a powerful engine and a sleek design. Ideal for those who crave performance and a striking appearance. Typically priced in the ultra-luxury range.",
+    "Price": 250000.0
   },
   {
     "Id": "i4b07384-d9a7-4c8b-8f8e-1e4e4f5e6a95",
     "Model": "McLaren 720S",
     "ProductionYear": 2019,
-    "Description": "A high-performance sports car with a powerful engine and a lightweight design. Perfect for those who seek a combination of speed and agility."
+    "Description": "A high-performance sports car with a powerful engine and a lightweight design. Perfect for those who seek a combination of speed and agility. Generally falls within the ultra-luxury price range.",
+    "Price": 300000.0
   },
   {
     "Id": "j5b07384-d9a7-4c8b-8f8e-1e4e4f5e6a96",
     "Model": "Bugatti Chiron",
     "ProductionYear": 2021,
-    "Description": "A hypercar with a powerful engine and a top speed of over 250 mph. Ideal for those who seek the pinnacle of automotive performance."
+    "Description": "A hypercar with a powerful engine and a top speed of over 250 mph. Ideal for those who seek the pinnacle of automotive performance. Typically priced in the ultra-luxury range.",
+    "Price": 3000000.0
   },
   {
     "Id": "k6b07384-d9a7-4c8b-8f8e-1e4e4f5e6a97",
     "Model": "Pagani Huayra",
     "ProductionYear": 2020,
-    "Description": "A hypercar with a powerful engine and a lightweight design. Perfect for those who value exclusivity and extreme performance."
+    "Description": "A hypercar with a powerful engine and a lightweight design. Perfect for those who value exclusivity and extreme performance. Generally falls within the ultra-luxury price range.",
+    "Price": 3200000.0
   },
   {
     "Id": "l7b07384-d9a7-4c8b-8f8e-1e4e4f5e6a98",
     "Model": "Koenigsegg Jesko",
     "ProductionYear": 2019,
-    "Description": "A hypercar with a powerful engine and a top speed of over 300 mph. Ideal for those who seek the ultimate in speed and performance."
+    "Description": "A hypercar with a powerful engine and a top speed of over 300 mph. Ideal for those who seek the ultimate in speed and performance. Typically priced in the ultra-luxury range.",
+    "Price": 3000000.0
   },
   {
     "Id": "m8b07384-d9a7-4c8b-8f8e-1e4e4f5e6a99",
     "Model": "Rimac C_Two",
     "ProductionYear": 2021,
-    "Description": "An electric hypercar with a powerful engine and a top speed of over 250 mph. Perfect for those who seek cutting-edge technology and extreme performance."
+    "Description": "An electric hypercar with a powerful engine and a top speed of over 250 mph. Perfect for those who seek cutting-edge technology and extreme performance. Typically priced in the ultra-luxury range.",
+    "Price": 2000000.0
   },
   {
     "Id": "n9b07384-d9a7-4c8b-8f8e-1e4e4f5e6a100",
     "Model": "Lucid Air",
     "ProductionYear": 2020,
-    "Description": "A luxury electric sedan with a powerful engine and a range of over 500 miles. Ideal for eco-conscious drivers who seek luxury and long-range capability."
+    "Description": "A luxury electric sedan with a powerful engine and a range of over 500 miles. Ideal for eco-conscious drivers who seek luxury and long-range capability. Generally falls within the premium price range.",
+    "Price": 80000.0
   },
   {
     "Id": "o0b07384-d9a7-4c8b-8f8e-1e4e4f5e6a101",
     "Model": "Rivian R1T",
     "ProductionYear": 2019,
-    "Description": "An electric pickup truck with a powerful engine and a range of over 300 miles. Perfect for adventurers and those who need a versatile and eco-friendly vehicle."
+    "Description": "An electric pickup truck with a powerful engine and a range of over 300 miles. Perfect for adventurers and those who need a versatile and eco-friendly vehicle. Typically priced in the higher mid-range.",
+    "Price": 70000.0
   },
   {
     "Id": "p1b07384-d9a7-4c8b-8f8e-1e4e4f5e6a102",
     "Model": "Ford F-150",
     "ProductionYear": 2021,
-    "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Ideal for those who need a reliable and capable workhorse."
+    "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Ideal for those who need a reliable and capable workhorse. Generally falls within the mid-range price bracket.",
+    "Price": 40000.0
   },
   {
     "Id": "q2b07384-d9a7-4c8b-8f8e-1e4e4f5e6a103",
     "Model": "Chevrolet Silverado",
     "ProductionYear": 2020,
-    "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Perfect for those who need a dependable and versatile vehicle for work and play."
+    "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Perfect for those who need a dependable and versatile vehicle for work and play. Typically priced in the mid-range.",
+    "Price": 42000.0
   }
 ]
