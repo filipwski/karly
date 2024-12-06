@@ -7,7 +7,7 @@ namespace Karly.Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddSqlDbContext(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddPostgresDbContext(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("KarlyDbContext");
         services.AddDbContext<KarlyDbContext>(options => options.UseNpgsql(connectionString));

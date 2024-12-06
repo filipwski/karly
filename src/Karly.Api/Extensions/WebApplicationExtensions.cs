@@ -5,7 +5,7 @@ namespace Karly.Api.Extensions;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication SetupDatabase(this WebApplication app)
+    public static void SetupDatabase(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
     
@@ -14,15 +14,13 @@ public static class WebApplicationExtensions
     
         if (dbContext == null)
         {
-            return app;
+            return;
         }
-    
+        
         app.Logger.LogInformation("Executing migrations.");
         dbContext.Database.Migrate();
     
         app.Logger.LogInformation("Ensuring created.");
         dbContext.Database.EnsureCreated();
-        
-        return app;
     }
 }

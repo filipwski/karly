@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 
@@ -20,5 +21,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Karly.Application\Karly.Application.csproj" />
     </ItemGroup>
-
 </Project>
