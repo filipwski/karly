@@ -3,11 +3,7 @@ services:
     image: mcr.microsoft.com/dotnet/sdk:8.0
     tty: true
     entrypoint:
-      - /bin/bash
-      - -c
-      - |
-        dotnet restore
-        dotnet watch run --no-launch-profile --project ./src/Karly.Api
+      /bin/bash -c "dotnet restore && dotnet watch run --no-launch-profile --project ./src/Karly.Api"
     working_dir: /karly-api
     volumes:
       - .:/karly-api
@@ -16,7 +12,7 @@ services:
       - karly_application_bin_volume:/karly-api/src/Karly.Application/bin
       - karly_application_obj_volume:/karly-api/src/Karly.Application/obj
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_ENVIRONMENT=Development
       - DOTNET_WATCH_RESTART_ON_CHANGES=true
       - ConnectionStrings__KarlyDbContext=Server=database; Database=karly; Username=postgres; Password=${DATABASE_PASSWORD}
     ports:
@@ -30,7 +26,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-      - "${DATABASE_PORT}:5432"
+      - "5432:5432"
 
 volumes:
   karly_api_bin_volume:
