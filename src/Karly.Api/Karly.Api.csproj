@@ -24,9 +24,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Karly.Application\Karly.Application.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="core" />
-    </ItemGroup>
-
 </Project>
