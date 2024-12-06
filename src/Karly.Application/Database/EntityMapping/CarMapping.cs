@@ -31,7 +31,7 @@ public class CarMapping : IEntityTypeConfiguration<Car>
         
         builder
             .Property(x => x.Price)
-            .HasColumnType("float")
+            .HasColumnType("decimal(18,2)")
             .IsRequired();
     }
 }

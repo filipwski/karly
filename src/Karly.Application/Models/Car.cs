@@ -6,5 +6,5 @@ public class Car
     public string Model { get; init; }
     public int ProductionYear { get; init; }
     public string Description { get; init; }
-    public float Price { get; init; }
+    public decimal Price { get; init; }
 }
