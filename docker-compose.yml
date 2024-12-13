@@ -1,15 +1,35 @@
 services:
   karly.api:
-    build:
-      dockerfile: ./src/Karly.Api/Dockerfile
+    image: mcr.microsoft.com/dotnet/sdk:8.0
+    tty: true
+    entrypoint:
+      /bin/bash -c "dotnet restore && dotnet watch run --no-launch-profile --project ./src/Karly.Api"
+    working_dir: /karly-api
+    volumes:
+      - .:/karly-api
+      - karly_api_bin_volume:/karly-api/src/Karly.Api/bin
+      - karly_api_obj_volume:/karly-api/src/Karly.Api/obj
+      - karly_application_bin_volume:/karly-api/src/Karly.Application/bin
+      - karly_application_obj_volume:/karly-api/src/Karly.Application/obj
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_WATCH_RESTART_ON_CHANGES=true
+      - ConnectionStrings__KarlyDbContext=Server=database; Database=karly; Username=postgres; Password=${DATABASE_PASSWORD}
     ports:
       - "8080:8080"
+    depends_on:
+      - database
   database:
     image: postgres:17.1
-    hostname: localhost
     restart: always
     shm_size: 128mb
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
-      - "${DATABASE_PORT}:5432"
+      - "5432:5432"
+
+volumes:
+  karly_api_bin_volume:
+  karly_api_obj_volume:
+  karly_application_bin_volume:
+  karly_application_obj_volume:
