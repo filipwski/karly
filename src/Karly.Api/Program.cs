@@ -1,4 +1,5 @@
 using Karly.Api.Extensions;
+using Karly.Api.Services;
 using Karly.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,12 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenApi at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgresDbContext(configuration);
-
+builder.Services.AddControllers();
+builder.Services.AddScoped<ICarService, CarService>();
 
 var app = builder.Build();
 
