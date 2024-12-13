@@ -1,5 +1,4 @@
 using Karly.Api.Extensions;
-using Karly.Api.Services;
 using Karly.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgresDbContext(configuration);
 builder.Services.AddControllers();
-builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddServices();
 
 var app = builder.Build();
 
