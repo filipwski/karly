@@ -1,6 +1,6 @@
 namespace Karly.Contracts.Responses;
 
-public class GetCarDto
+public record GetCarDto
 {
     public required Guid Id { get; init; }
     public required string Model { get; init; }
