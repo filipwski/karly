@@ -3,6 +3,7 @@ using System;
 using Karly.Application.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Pgvector;
@@ -12,9 +13,11 @@ using Pgvector;
 namespace Karly.Application.Migrations
 {
     [DbContext(typeof(KarlyDbContext))]
-    partial class KarlyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250124203637_AddVectorType")]
+    partial class AddVectorType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
