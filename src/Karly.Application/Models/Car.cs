@@ -2,9 +2,10 @@ namespace Karly.Application.Models;
 
 public class Car
 {
-    public Guid Id { get; init; }
-    public string Model { get; init; }
-    public int ProductionYear { get; init; }
-    public string Description { get; init; }
-    public decimal Price { get; init; }
+    public required Guid Id { get; init; }
+    public required string Model { get; init; }
+    public required int ProductionYear { get; init; }
+    public required decimal Price { get; init; }
+    public string Description { get; set; }
+    public CarEmbedding? CarEmbedding { get; set; }
 }
