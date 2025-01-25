@@ -27,6 +27,10 @@ services:
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
     ports:
       - "5432:5432"
+    command: >
+      bash -c "apt-get update &&
+        apt-get install -y postgresql-17-pgvector &&
+        docker-entrypoint.sh postgres"
 
 volumes:
   karly_api_bin_volume:
