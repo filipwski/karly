@@ -3,25 +3,26 @@ using System;
 using Karly.Application.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Pgvector;
 
 #nullable disable
 
 namespace Karly.Application.Migrations
 {
     [DbContext(typeof(KarlyDbContext))]
-    partial class KarlyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250124191110_AddCarEmbeddings")]
+    partial class AddCarEmbeddings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresExtension(modelBuilder, "vector");
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Karly.Application.Models.Car", b =>
@@ -60,16 +61,12 @@ namespace Karly.Application.Migrations
                     b.Property<Guid>("CarId")
                         .HasColumnType("uuid");
 
-                    b.Property<Vector>("Embedding")
-                        .IsRequired()
-                        .HasColumnType("vector(1536)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CarId")
                         .IsUnique();
 
-                    b.ToTable("CarEmbeddings", (string)null);
+                    b.ToTable("CarEmbedding");
                 });
 
             modelBuilder.Entity("Karly.Application.Models.CarEmbedding", b =>

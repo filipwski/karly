@@ -13,7 +13,9 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql(configuration.GetConnectionString("KarlyDbContext"));
+        optionsBuilder.UseNpgsql(
+            configuration.GetConnectionString("KarlyDbContext"),
+            o => o.UseVector());
 
         if (hostEnvironment.IsDevelopment())
         {
@@ -35,6 +37,8 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresExtension("vector");
         modelBuilder.ApplyConfiguration(new CarMapping());
+        modelBuilder.ApplyConfiguration(new CarEmbeddingMapping());
     }
 }
