@@ -22,10 +22,15 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
             optionsBuilder.UseSeeding((context, _) =>
             {
                 if (context.Set<Car>().FirstOrDefault() != null) return;
-                
-                var jsonString = File.ReadAllText(Path.Combine(
-                    Directory.GetCurrentDirectory(),
-                    "../Karly.Application/Database/Resources/ExampleCars.json"));
+
+                var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "Database", "Resources", "ExampleCars.json");
+
+                if (!File.Exists(jsonFilePath))
+                {
+                    throw new FileNotFoundException($"Seed file not found: {jsonFilePath}");
+                }
+
+                var jsonString = File.ReadAllText(jsonFilePath);
                 var carList = JsonSerializer.Deserialize<List<Car>>(jsonString);
                 if (carList == null) return;
 
