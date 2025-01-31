@@ -23,7 +23,7 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
             {
                 if (context.Set<Car>().FirstOrDefault() != null) return;
 
-                var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "Database", "Resources", "ExampleCars.json");
+                var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "ExampleCars.json");
 
                 if (!File.Exists(jsonFilePath))
                 {

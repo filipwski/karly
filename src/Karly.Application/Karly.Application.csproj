@@ -24,7 +24,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="../Karly.Application/Database/Resources/ExampleCars.json">
+        <None Update="../Karly.Application/Database/Resources/*.json">
+            <TargetPath>%(Filename)%(Extension)</TargetPath>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
