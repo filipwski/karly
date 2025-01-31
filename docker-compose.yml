@@ -1,6 +1,6 @@
 services:
   karly.api:
-    image: mcr.microsoft.com/dotnet/sdk:8.0
+    image: mcr.microsoft.com/dotnet/sdk:9.0
     tty: true
     entrypoint:
       /bin/bash -c "dotnet restore && dotnet watch run --no-launch-profile --project ./src/Karly.Api"
@@ -11,6 +11,8 @@ services:
       - karly_api_obj_volume:/karly-api/src/Karly.Api/obj
       - karly_application_bin_volume:/karly-api/src/Karly.Application/bin
       - karly_application_obj_volume:/karly-api/src/Karly.Application/obj
+      - karly_api_tests_integration_bin_volume:/karly-api/tests/Karly.Api.Tests.Integration/bin
+      - karly_api_tests_integration_obj_volume:/karly-api/tests/Karly.Api.Tests.Integration/obj
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DOTNET_WATCH_RESTART_ON_CHANGES=true
@@ -37,3 +39,5 @@ volumes:
   karly_api_obj_volume:
   karly_application_bin_volume:
   karly_application_obj_volume:
+  karly_api_tests_integration_bin_volume:
+  karly_api_tests_integration_obj_volume:
