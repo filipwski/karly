@@ -35,6 +35,23 @@ namespace Karly.Application.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("text");
 
+                    b.Property<bool>("HasAutomaticTransmission")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsElectric")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Make")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("text");
+
+                    b.Property<int>("Mileage")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasMaxLength(30)

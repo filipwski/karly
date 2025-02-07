@@ -8,7 +8,6 @@ public interface ICarService
 {
     public Task<Car?> GetAsync(Guid id);
     public Task<IEnumerable<Car>> GetAllAsync();
-
 }
 
 public class CarService(KarlyDbContext dbContext) : ICarService

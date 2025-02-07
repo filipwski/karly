@@ -10,9 +10,14 @@ public static class ContractMapping
         return new GetCarDto
         {
             Id = car.Id,
+            Make = car.Make,
             Model = car.Model,
             Price = car.Price,
             ProductionYear = car.ProductionYear,
+            Mileage = car.Mileage,
+            IsNew = car.IsNew,
+            IsElectric = car.IsElectric,
+            HasAutomaticTransmission = car.HasAutomaticTransmission,
             Description = car.Description
         };
     }
