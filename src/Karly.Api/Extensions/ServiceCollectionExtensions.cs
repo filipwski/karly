@@ -18,8 +18,7 @@ public static class ServiceCollectionExtensions
         var openAiKey = configuration["Karly:OpenAiKey"];
         if (openAiKey == null) throw new Exception("Karly:OpenAiKey is required");
 
-        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002",
-            openAiKey);
+        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002", openAiKey);
         services.AddScoped(serviceProvider => new Kernel(serviceProvider));
     }
 }
