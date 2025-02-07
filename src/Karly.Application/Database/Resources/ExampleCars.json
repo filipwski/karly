@@ -1,242 +1,442 @@
 [
   {
-    "Model": "Toyota Corolla",
+    "Make": "Toyota",
+    "Model": "Corolla",
     "ProductionYear": 2020,
     "Description": "A reliable compact car with excellent fuel efficiency and a comfortable interior. Ideal for commuters and small families looking for an economical and dependable vehicle. Typically priced in the affordable range.",
-    "Price": 20000.0
+    "Price": 20000.0,
+    "Mileage": 77776,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Honda Civic",
+    "Make": "Honda",
+    "Model": "Civic",
     "ProductionYear": 2019,
     "Description": "A sporty sedan with a sleek design and advanced safety features. Perfect for young professionals and small families who value style and safety. Generally falls within the mid-range price bracket.",
-    "Price": 22000.0
+    "Price": 22000.0,
+    "Mileage": 66982,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Ford Mustang",
+    "Make": "Ford",
+    "Model": "Mustang",
     "ProductionYear": 2021,
     "Description": "A powerful muscle car with a V8 engine and iconic styling. Great for car enthusiasts and those who crave performance and a thrilling driving experience. Typically priced in the higher range.",
-    "Price": 55000.0
+    "Price": 55000.0,
+    "Mileage": 47048,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Chevrolet Camaro",
+    "Make": "Chevrolet",
+    "Model": "Camaro",
     "ProductionYear": 2018,
     "Description": "A high-performance sports car with aggressive looks and a turbocharged engine. Suited for drivers who want a combination of power and style. Generally falls within the mid to high price range.",
-    "Price": 40000.0
+    "Price": 40000.0,
+    "Mileage": 107365,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Tesla Model S",
+    "Make": "Tesla",
+    "Model": "Model S",
     "ProductionYear": 2022,
     "Description": "A luxury electric sedan with cutting-edge technology and impressive range. Ideal for tech-savvy individuals and eco-conscious drivers seeking luxury and performance. Typically priced in the premium range.",
-    "Price": 80000.0
+    "Price": 80000.0,
+    "Mileage": 44348,
+    "IsNew": false,
+    "IsElectric": true,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "BMW 3 Series",
+    "Make": "BMW",
+    "Model": "3 Series",
     "ProductionYear": 2020,
     "Description": "A premium compact car with a refined interior and dynamic driving experience. Perfect for professionals and small families who appreciate luxury and performance. Generally falls within the higher mid-range price bracket.",
-    "Price": 41000.0
+    "Price": 41000.0,
+    "Mileage": 93966,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": false
   },
   {
-    "Model": "Audi A4",
-    "ProductionYear": 2019,
+    "Make": "Audi",
+    "Model": "A4",
+    "ProductionYear": 2025,
     "Description": "A stylish sedan with a high-quality interior and advanced infotainment system. Ideal for those who value technology and a premium driving experience. Typically priced in the higher mid-range.",
-    "Price": 39000.0
+    "Price": 39000.0,
+    "Mileage": 5,
+    "IsNew": true,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Mercedes-Benz C-Class",
+    "Make": "Mercedes-Benz",
+    "Model": "C-Class",
     "ProductionYear": 2021,
     "Description": "A luxury sedan with a smooth ride and a host of high-tech features. Perfect for executives and professionals seeking comfort and sophistication. Generally falls within the premium price range.",
-    "Price": 42000.0
+    "Price": 42000.0,
+    "Mileage": 5,
+    "IsNew": true,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Volkswagen Golf",
+    "Make": "Volkswagen",
+    "Model": "Golf",
     "ProductionYear": 2018,
     "Description": "A versatile hatchback with a spacious interior and efficient engine options. Great for small families and individuals who need practicality and efficiency. Typically priced in the affordable to mid-range.",
-    "Price": 25000.0
+    "Price": 25000.0,
+    "Mileage": 106015,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Subaru Outback",
+    "Make": "Subaru",
+    "Model": "Outback",
     "ProductionYear": 2020,
     "Description": "A rugged crossover with all-wheel drive and ample cargo space. Ideal for outdoor enthusiasts and families who need a reliable and versatile vehicle. Generally falls within the mid-range price bracket.",
-    "Price": 30000.0
+    "Price": 30000.0,
+    "Mileage": 39940,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Mazda CX-5",
+    "Make": "Mazda",
+    "Model": "CX-5",
     "ProductionYear": 2019,
     "Description": "A compact SUV with sporty handling and a stylish design. Perfect for small families and individuals who want a fun-to-drive and practical vehicle. Typically priced in the mid-range.",
-    "Price": 28000.0
+    "Price": 28000.0,
+    "Mileage": 44084,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Hyundai Elantra",
+    "Make": "Hyundai",
+    "Model": "Elantra",
     "ProductionYear": 2021,
     "Description": "A compact sedan with a modern look and a suite of advanced safety features. Ideal for young professionals and small families who prioritize safety and style. Generally falls within the affordable range.",
-    "Price": 20000.0
+    "Price": 20000.0,
+    "Mileage": 99065,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Kia Sorento",
+    "Make": "Kia",
+    "Model": "Sorento",
     "ProductionYear": 2020,
     "Description": "A midsize SUV with three rows of seating and a comfortable ride. Great for larger families who need space and comfort for long trips. Typically priced in the mid-range.",
-    "Price": 32000.0
+    "Price": 32000.0,
+    "Mileage": 22602,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Nissan Altima",
+    "Make": "Nissan",
+    "Model": "Altima",
     "ProductionYear": 2019,
     "Description": "A midsize sedan with a spacious interior and a smooth ride. Perfect for families and individuals who value comfort and reliability. Generally falls within the mid-range price bracket.",
-    "Price": 24000.0
+    "Price": 24000.0,
+    "Mileage": 116389,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Jeep Wrangler",
+    "Make": "Jeep",
+    "Model": "Wrangler",
     "ProductionYear": 2021,
     "Description": "An off-road SUV with rugged capabilities and a removable top. Ideal for adventure seekers and off-road enthusiasts who need a capable vehicle. Typically priced in the higher mid-range.",
-    "Price": 35000.0
+    "Price": 35000.0,
+    "Mileage": 103049,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Lexus RX",
+    "Make": "Lexus",
+    "Model": "RX",
     "ProductionYear": 2020,
     "Description": "A luxury SUV with a smooth ride and a well-appointed interior. Perfect for families and individuals who seek luxury and comfort in their daily drives. Generally falls within the premium price range.",
-    "Price": 45000.0
+    "Price": 45000.0,
+    "Mileage": 137010,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Acura MDX",
+    "Make": "Acura",
+    "Model": "MDX",
     "ProductionYear": 2019,
     "Description": "A midsize luxury SUV with three rows of seating and advanced safety features. Ideal for larger families who need space and value safety and luxury. Typically priced in the higher mid-range.",
-    "Price": 47000.0
+    "Price": 47000.0,
+    "Mileage": 26939,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Volvo XC90",
+    "Make": "Volvo",
+    "Model": "XC90",
     "ProductionYear": 2021,
     "Description": "A luxury SUV with a spacious interior and a host of safety features. Perfect for families who prioritize safety and comfort in a premium vehicle. Generally falls within the premium price range.",
-    "Price": 56000.0
+    "Price": 56000.0,
+    "Mileage": 123432,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Porsche 911",
+    "Make": "Porsche",
+    "Model": "911",
     "ProductionYear": 2020,
     "Description": "A high-performance sports car with a powerful engine and iconic design. Ideal for car enthusiasts and those who seek a thrilling driving experience. Typically priced in the high-end range.",
-    "Price": 100000.0
+    "Price": 100000.0,
+    "Mileage": 88264,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Jaguar F-Type",
+    "Make": "Jaguar",
+    "Model": "F-Type",
     "ProductionYear": 2019,
     "Description": "A luxury sports car with a sleek design and a powerful engine. Perfect for individuals who value performance and a stylish appearance. Generally falls within the high-end price range.",
-    "Price": 90000.0
+    "Price": 90000.0,
+    "Mileage": 143583,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Land Rover Range Rover",
+    "Make": "Land",
+    "Model": "Rover Range Rover",
     "ProductionYear": 2021,
     "Description": "A luxury SUV with off-road capabilities and a refined interior. Ideal for those who need a versatile vehicle that combines luxury and ruggedness. Typically priced in the premium range.",
-    "Price": 92000.0
+    "Price": 92000.0,
+    "Mileage": 38857,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Alfa Romeo Giulia",
+    "Make": "Alfa",
+    "Model": "Romeo Giulia",
     "ProductionYear": 2020,
     "Description": "A stylish sedan with sporty handling and a powerful engine. Perfect for drivers who appreciate Italian design and a dynamic driving experience. Generally falls within the higher mid-range price bracket.",
-    "Price": 40000.0
+    "Price": 40000.0,
+    "Mileage": 21818,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Cadillac Escalade",
+    "Make": "Cadillac",
+    "Model": "Escalade",
     "ProductionYear": 2019,
     "Description": "A full-size luxury SUV with a spacious interior and a powerful V8 engine. Ideal for large families and individuals who need space and luxury. Typically priced in the premium range.",
-    "Price": 76000.0
+    "Price": 76000.0,
+    "Mileage": 94714,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Infiniti QX60",
+    "Make": "Infiniti",
+    "Model": "QX60",
     "ProductionYear": 2021,
     "Description": "A midsize luxury SUV with three rows of seating and a comfortable ride. Perfect for families who need space and value comfort and luxury. Generally falls within the higher mid-range price bracket.",
-    "Price": 46000.0
+    "Price": 46000.0,
+    "Mileage": 144676,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Lincoln Navigator",
+    "Make": "Lincoln",
+    "Model": "Navigator",
     "ProductionYear": 2020,
     "Description": "A full-size luxury SUV with a spacious interior and a smooth ride. Ideal for large families and individuals who seek luxury and comfort. Typically priced in the premium range.",
-    "Price": 81000.0
+    "Price": 81000.0,
+    "Mileage": 148298,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Maserati Ghibli",
+    "Make": "Maserati",
+    "Model": "Ghibli",
     "ProductionYear": 2019,
     "Description": "A luxury sports sedan with a powerful engine and a stylish design. Perfect for those who value performance and Italian craftsmanship. Generally falls within the premium price range.",
-    "Price": 75000.0
+    "Price": 75000.0,
+    "Mileage": 49540,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Bentley Continental GT",
+    "Make": "Bentley",
+    "Model": "Continental GT",
     "ProductionYear": 2021,
     "Description": "A luxury grand tourer with a powerful engine and a refined interior. Ideal for those who seek a combination of performance and luxury. Typically priced in the high-end range.",
-    "Price": 220000.0
+    "Price": 220000.0,
+    "Mileage": 131025,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Rolls-Royce Phantom",
+    "Make": "Rolls-Royce",
+    "Model": "Phantom",
     "ProductionYear": 2020,
     "Description": "A luxury sedan with a spacious interior and a smooth ride. Perfect for those who seek the ultimate in luxury and comfort. Generally falls within the ultra-luxury price range.",
-    "Price": 450000.0
+    "Price": 450000.0,
+    "Mileage": 125971,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Aston Martin DB11",
+    "Make": "Aston",
+    "Model": "Martin DB11",
     "ProductionYear": 2019,
     "Description": "A luxury sports car with a powerful engine and a sleek design. Ideal for those who value performance and British craftsmanship. Typically priced in the high-end range.",
-    "Price": 200000.0
+    "Price": 200000.0,
+    "Mileage": 17202,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Ferrari 488",
+    "Make": "Ferrari",
+    "Model": "488",
     "ProductionYear": 2021,
     "Description": "A high-performance sports car with a powerful engine and an iconic design. Perfect for car enthusiasts and those who seek a thrilling driving experience. Generally falls within the ultra-luxury price range.",
-    "Price": 280000.0
+    "Price": 280000.0,
+    "Mileage": 101846,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Lamborghini Huracan",
+    "Make": "Lamborghini",
+    "Model": "Huracan",
     "ProductionYear": 2020,
     "Description": "A high-performance sports car with a powerful engine and a sleek design. Ideal for those who crave performance and a striking appearance. Typically priced in the ultra-luxury range.",
-    "Price": 250000.0
+    "Price": 250000.0,
+    "Mileage": 58120,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "McLaren 720S",
+    "Make": "McLaren",
+    "Model": "720S",
     "ProductionYear": 2019,
     "Description": "A high-performance sports car with a powerful engine and a lightweight design. Perfect for those who seek a combination of speed and agility. Generally falls within the ultra-luxury price range.",
-    "Price": 300000.0
+    "Price": 300000.0,
+    "Mileage": 116988,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Bugatti Chiron",
+    "Make": "Bugatti",
+    "Model": "Chiron",
     "ProductionYear": 2021,
     "Description": "A hypercar with a powerful engine and a top speed of over 250 mph. Ideal for those who seek the pinnacle of automotive performance. Typically priced in the ultra-luxury range.",
-    "Price": 3000000.0
+    "Price": 3000000.0,
+    "Mileage": 43847,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Pagani Huayra",
+    "Make": "Pagani",
+    "Model": "Huayra",
     "ProductionYear": 2020,
     "Description": "A hypercar with a powerful engine and a lightweight design. Perfect for those who value exclusivity and extreme performance. Generally falls within the ultra-luxury price range.",
-    "Price": 3200000.0
+    "Price": 3200000.0,
+    "Mileage": 67454,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Koenigsegg Jesko",
+    "Make": "Koenigsegg",
+    "Model": "Jesko",
     "ProductionYear": 2019,
     "Description": "A hypercar with a powerful engine and a top speed of over 300 mph. Ideal for those who seek the ultimate in speed and performance. Typically priced in the ultra-luxury range.",
-    "Price": 3000000.0
+    "Price": 3000000.0,
+    "Mileage": 13054,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Rimac C_Two",
+    "Make": "Rimac",
+    "Model": "C_Two",
     "ProductionYear": 2021,
     "Description": "An electric hypercar with a powerful engine and a top speed of over 250 mph. Perfect for those who seek cutting-edge technology and extreme performance. Typically priced in the ultra-luxury range.",
-    "Price": 2000000.0
+    "Price": 2000000.0,
+    "Mileage": 109153,
+    "IsNew": false,
+    "IsElectric": true,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Lucid Air",
+    "Make": "Lucid",
+    "Model": "Air",
     "ProductionYear": 2020,
     "Description": "A luxury electric sedan with a powerful engine and a range of over 500 miles. Ideal for eco-conscious drivers who seek luxury and long-range capability. Generally falls within the premium price range.",
-    "Price": 80000.0
+    "Price": 80000.0,
+    "Mileage": 134057,
+    "IsNew": false,
+    "IsElectric": true,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Rivian R1T",
+    "Make": "Rivian",
+    "Model": "R1T",
     "ProductionYear": 2019,
     "Description": "An electric pickup truck with a powerful engine and a range of over 300 miles. Perfect for adventurers and those who need a versatile and eco-friendly vehicle. Typically priced in the higher mid-range.",
-    "Price": 70000.0
+    "Price": 70000.0,
+    "Mileage": 56663,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   },
   {
-    "Model": "Ford F-150",
+    "Make": "Ford",
+    "Model": "F-150",
     "ProductionYear": 2021,
     "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Ideal for those who need a reliable and capable workhorse. Generally falls within the mid-range price bracket.",
-    "Price": 40000.0
+    "Price": 40000.0,
+    "Mileage": 53453,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": false
   },
   {
-    "Model": "Chevrolet Silverado",
+    "Make": "Chevrolet",
+    "Model": "Silverado",
     "ProductionYear": 2020,
     "Description": "A full-size pickup truck with a powerful engine and a spacious interior. Perfect for those who need a dependable and versatile vehicle for work and play. Typically priced in the mid-range.",
-    "Price": 42000.0
+    "Price": 42000.0,
+    "Mileage": 86762,
+    "IsNew": false,
+    "IsElectric": false,
+    "HasAutomaticTransmission": true
   }
 ]
