@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddPostgresDbContext(configuration);
 builder.Services.AddControllers();
-builder.Services.AddServices();
+builder.Services.AddServices(configuration);
 
 var app = builder.Build();
 
