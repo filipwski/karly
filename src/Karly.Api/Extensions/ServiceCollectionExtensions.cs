@@ -11,15 +11,15 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<ICarEmbeddingService, CarEmbeddingService>();
-        services.AddOpenAiTextEmbeddingGeneration(configuration);
+        services.AddSemanticKernelServices(configuration);
     }
 
-    private static void AddOpenAiTextEmbeddingGeneration(this IServiceCollection services, IConfiguration configuration)
+    private static void AddSemanticKernelServices(this IServiceCollection services, IConfiguration configuration)
     {
         var openAiKey = configuration.GetValue<string>("OpenAiKey");
-        if (openAiKey == null) throw new Exception("Karly:OpenAiKey is required");
+        if (openAiKey == null) throw new Exception("OpenAiKey is required");
 
-        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002", openAiKey);
         services.AddKernel();
+        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002", openAiKey);
     }
 }
