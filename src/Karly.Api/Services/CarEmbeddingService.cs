@@ -6,23 +6,23 @@ namespace Karly.Api.Services;
 
 public interface ICarEmbeddingService
 {
-    public Task GenerateEmbeddingsAsync();
+    public Task<IList<ReadOnlyMemory<float>>?> GenerateEmbeddingsAsync(string[] input);
 }
 
 public class CarEmbeddingService(ITextEmbeddingGenerationService embeddingGenerationService) : ICarEmbeddingService
 {
-    public async Task GenerateEmbeddingsAsync()
+    public async Task<IList<ReadOnlyMemory<float>>?> GenerateEmbeddingsAsync(string[] input)
     {
         try
         {
-            var embedding = await embeddingGenerationService
-                .GenerateEmbeddingsAsync(["Jestę bogę"]);
-
-            Console.WriteLine(embedding);
+            var embeddings = await embeddingGenerationService
+                .GenerateEmbeddingsAsync(input);
+            return embeddings;
         }
         catch (Exception exception)
         {
             Console.WriteLine($"Error while generating embeddings: {exception.Message}");
+            return null;
         }
     }
 }
