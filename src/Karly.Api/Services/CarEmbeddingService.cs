@@ -5,7 +5,12 @@ using Microsoft.SemanticKernel.Embeddings;
 
 namespace Karly.Api.Services;
 
-public class CarEmbeddingService(Kernel kernel)
+public interface ICarEmbeddingService
+{
+    public Task GenerateEmbeddingsAsync();
+}
+
+public class CarEmbeddingService(Kernel kernel) : ICarEmbeddingService
 {
     private readonly ITextEmbeddingGenerationService _textEmbeddingGenerationService =
         kernel.GetRequiredService<ITextEmbeddingGenerationService>();
