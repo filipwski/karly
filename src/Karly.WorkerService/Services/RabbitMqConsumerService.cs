@@ -71,7 +71,7 @@ public class RabbitMqConsumerService
             }
         };
 
-        await _channel.BasicConsumeAsync(queue: "car_create_queue", autoAck: false, consumer: consumer, cancellationToken);
+        await _channel.BasicConsumeAsync(queue: _options.CreateCarQueueName, autoAck: false, consumer: consumer, cancellationToken);
 
         await Task.Delay(1000, cancellationToken);
     }
