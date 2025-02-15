@@ -81,8 +81,8 @@ public static class ContractMapping
         };
     }
 
-    public static GetCarsDto MapToDto(this IEnumerable<Car> cars)
+    public static CarsDto MapToDto(this IEnumerable<Car> cars)
     {
-        return new GetCarsDto { Items = cars.Select(MapToDto).ToList() };
+        return new CarsDto { Items = cars.Select(MapToDto).ToList() };
     }
 }

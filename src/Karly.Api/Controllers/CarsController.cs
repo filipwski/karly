@@ -20,15 +20,15 @@ public class CarsController : ControllerBase
     [HttpGet(ApiEndpoints.Cars.Get)]
     public async Task<IActionResult> Get([FromRoute] Guid id, CancellationToken cancellationToken = default)
     {
-        var car = await _carService.GetAsync(id, cancellationToken);
-        return car == null ? NotFound() : Ok(car.MapToDto());
+        var carDto = await _carService.GetAsync(id, cancellationToken);
+        return carDto == null ? NotFound() : Ok(carDto);
     }
     
     [HttpGet(ApiEndpoints.Cars.GetAll)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
     {
-        var cars = await _carService.GetAllAsync(cancellationToken);
-        return Ok(cars.MapToDto());
+        var carsDto = await _carService.GetAllAsync(cancellationToken);
+        return Ok(carsDto);
     }
     
     [HttpPost(ApiEndpoints.Cars.Create)]

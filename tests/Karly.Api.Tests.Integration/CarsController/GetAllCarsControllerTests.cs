@@ -23,7 +23,7 @@ public class GetAllCarsControllerTests
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
-        var getCarsDto = await response.Content.ReadFromJsonAsync<GetCarsDto>();
+        var getCarsDto = await response.Content.ReadFromJsonAsync<CarsDto>();
         getCarsDto!.Items.Should().NotBeEmpty();
     }
 }

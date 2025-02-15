@@ -9,16 +9,16 @@ namespace Karly.Application.Services;
 
 public interface ICarService
 {
-    public Task<Car?> GetAsync(Guid id, CancellationToken cancellationToken = default);
-    public Task<IEnumerable<Car>> GetAllAsync(CancellationToken cancellationToken = default);
+    public Task<CarDto?> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    public Task<CarsDto> GetAllAsync(CancellationToken cancellationToken = default);
     Task<CarDto> Create(CreateCarCommand command, CancellationToken cancellationToken = default);
 }
 
 public class CarService(KarlyDbContext dbContext) : ICarService
 {
-    public async Task<Car?> GetAsync(Guid id, CancellationToken cancellationToken = default) => await dbContext.Cars.FindAsync([id], cancellationToken);
+    public async Task<CarDto?> GetAsync(Guid id, CancellationToken cancellationToken = default) => (await dbContext.Cars.FindAsync([id], cancellationToken))?.MapToDto();
 
-    public async Task<IEnumerable<Car>> GetAllAsync(CancellationToken cancellationToken = default) => await dbContext.Cars.ToListAsync(cancellationToken);
+    public async Task<CarsDto> GetAllAsync(CancellationToken cancellationToken = default) => (await dbContext.Cars.ToListAsync(cancellationToken)).MapToDto();
 
     public async Task<CarDto> Create(CreateCarCommand command, CancellationToken cancellationToken = default)
     {
