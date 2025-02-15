@@ -21,6 +21,7 @@ services:
       - "8080:8080"
     depends_on:
       - database
+
   database:
     image: postgres:17.1
     restart: always
@@ -33,6 +34,21 @@ services:
       bash -c "apt-get update &&
         apt-get install -y postgresql-17-pgvector &&
         docker-entrypoint.sh postgres"
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   karly_api_bin_volume:
