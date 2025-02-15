@@ -4,7 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <UserSecretsId>dotnet-Karly.WorkerService-71a174c5-ffd9-4739-a757-247b68230884</UserSecretsId>
+        <UserSecretsId>df2ed023-f149-4d16-964d-a8fec8028f4e</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>

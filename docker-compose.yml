@@ -51,7 +51,6 @@ services:
       - karly_api_tests_integration_obj_volume:/karly-api/tests/Karly.Api.Tests.Integration/obj
     environment:
       - DOTNET_ENVIRONMENT=Development
-      - ASPNETCORE_ENVIRONMENT=Development
       - DOTNET_WATCH_RESTART_ON_CHANGES=true
       - ConnectionStrings__KarlyDbContext=Server=database; Database=karly; Username=postgres; Password=${DATABASE_PASSWORD}
       - RabbitMq__HostName=rabbitmq
