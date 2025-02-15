@@ -2,5 +2,5 @@ namespace Karly.Contracts.Responses;
 
 public record GetCarsDto
 {
-    public required IReadOnlyList<GetCarDto> Items { get; init; } = Enumerable.Empty<GetCarDto>().ToList();
+    public required IReadOnlyList<CarDto> Items { get; init; } = Enumerable.Empty<CarDto>().ToList();
 }

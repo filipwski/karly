@@ -1,7 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using Karly.Application.Database;
+using Karly.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.SemanticKernel;
 
 namespace Karly.Application.Extensions;
 
@@ -12,5 +15,23 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("KarlyDbContext");
         services.AddDbContext<KarlyDbContext>(options => options.UseNpgsql(connectionString));
         return services;
+    }
+    
+    [Experimental("SKEXP0010")]
+    public static void AddServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<ICarService, CarService>();
+        services.AddScoped<ICarEmbeddingService, CarEmbeddingService>();
+        services.AddSemanticKernelServices(configuration);
+    }
+
+    [Experimental("SKEXP0010")]
+    private static void AddSemanticKernelServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        var openAiKey = configuration.GetValue<string>("OpenAiKey");
+        if (openAiKey == null) throw new Exception("OpenAiKey is required");
+
+        services.AddKernel();
+        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002", openAiKey);
     }
 }
