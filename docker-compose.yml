@@ -21,6 +21,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - DOTNET_WATCH_RESTART_ON_CHANGES=true
       - ConnectionStrings__KarlyDbContext=Server=database; Database=karly; Username=postgres; Password=${DATABASE_PASSWORD}
+      - OpenAiKey=${OPEN_AI_KEY}
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest
@@ -53,6 +54,7 @@ services:
       - DOTNET_ENVIRONMENT=Development
       - DOTNET_WATCH_RESTART_ON_CHANGES=true
       - ConnectionStrings__KarlyDbContext=Server=database; Database=karly; Username=postgres; Password=${DATABASE_PASSWORD}
+      - OpenAiKey=${OPEN_AI_KEY}
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest

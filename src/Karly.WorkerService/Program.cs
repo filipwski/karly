@@ -5,6 +5,11 @@ using Karly.WorkerService.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
 builder.Services.AddPostgresDbContext(builder.Configuration);
 #pragma warning disable SKEXP0010
 builder.Services.AddServices(builder.Configuration);
