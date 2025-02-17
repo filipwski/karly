@@ -41,6 +41,13 @@ public class RabbitMqConsumerService
         _connection = await factory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
         
+        await _channel.ExchangeDeclareAsync(
+            exchange: "car_creation_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+        
         await _channel.QueueDeclareAsync(
             queue: _options.CreateCarQueueName,
             durable: true,
@@ -51,6 +58,41 @@ public class RabbitMqConsumerService
                 { "x-dead-letter-exchange", "dlx_exchange" },
                 { "x-dead-letter-routing-key", "dead_letter_routing_key" }
             }!,
+            cancellationToken: cancellationToken
+        );
+        
+        await _channel.QueueBindAsync(
+            queue: _options.CreateCarQueueName,
+            exchange: "car_creation_exchange",
+            routingKey: "car_creation_routing_key",
+            cancellationToken: cancellationToken
+        );
+        
+        await _channel.ExchangeDeclareAsync(
+            exchange: "retry_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+        
+        await _channel.QueueDeclareAsync(
+            queue: "retry_queue",
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", "car_creation_exchange" },
+                { "x-dead-letter-routing-key", "car_creation_routing_key" },
+                { "x-message-ttl", 10000 }
+            }!,
+            cancellationToken: cancellationToken
+        );
+        
+        await _channel.QueueBindAsync(
+            queue: "retry_queue",
+            exchange: "retry_exchange",
+            routingKey: "retry_routing_key",
             cancellationToken: cancellationToken
         );
 
@@ -119,8 +161,8 @@ public class RabbitMqConsumerService
                     };
 
                     await _channel.BasicPublishAsync(
-                        exchange: "",
-                        routingKey: _options.CreateCarQueueName,
+                        exchange: "retry_exchange",
+                        routingKey: "retry_routing_key",
                         mandatory: true,
                         basicProperties: properties,
                         body: ea.Body,
