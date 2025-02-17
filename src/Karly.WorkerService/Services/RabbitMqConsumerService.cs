@@ -40,12 +40,42 @@ public class RabbitMqConsumerService
 
         _connection = await factory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
-        await _channel.QueueDeclareAsync(queue: _options.CreateCarQueueName,
+        
+        await _channel.QueueDeclareAsync(
+            queue: _options.CreateCarQueueName,
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", "dlx_exchange" },
+                { "x-dead-letter-routing-key", "dead_letter_routing_key" }
+            }!,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.ExchangeDeclareAsync(
+            exchange: "dlx_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueDeclareAsync(
+            queue: "dead_letter_queue",
             durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: null,
-            cancellationToken: cancellationToken);
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueBindAsync(
+            queue: "dead_letter_queue",
+            exchange: "dlx_exchange",
+            routingKey: "dead_letter_routing_key",
+            cancellationToken: cancellationToken
+        );
 
         var consumer = new AsyncEventingBasicConsumer(_channel);
         consumer.ReceivedAsync += async (_, ea) =>
@@ -61,16 +91,51 @@ public class RabbitMqConsumerService
                 if (carData != null)
                 {
                     await ProcessCarCreationAsync(carData, cancellationToken);
-                    await _channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, multiple: false, cancellationToken);
+                    await _channel.BasicAckAsync(ea.DeliveryTag, false, cancellationToken);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error processing message: {ex.Message}");
-                await _channel.BasicNackAsync(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true, cancellationToken);
+                var retryCount = ea.Redelivered ? 1 : 0;
+
+                if (ea.BasicProperties.Headers != null && ea.BasicProperties.Headers.TryGetValue("x-delivery-count", out var countObj))
+                {
+                    retryCount = Convert.ToInt32(countObj) + 1;
+                }
+
+                _logger.LogError($"Error processing message. Retry count: {retryCount}. Error: {ex.Message}");
+
+                if (retryCount < 3)
+                {
+                    var updatedHeaders = ea.BasicProperties.Headers != null
+                        ? new Dictionary<string, object>(ea.BasicProperties.Headers!)
+                        : new Dictionary<string, object>();
+
+                    updatedHeaders["x-delivery-count"] = retryCount;
+
+                    var properties = new BasicProperties
+                    {
+                        Headers = updatedHeaders!
+                    };
+
+                    await _channel.BasicPublishAsync(
+                        exchange: "",
+                        routingKey: _options.CreateCarQueueName,
+                        mandatory: true,
+                        basicProperties: properties,
+                        body: ea.Body,
+                        cancellationToken
+                    );
+
+                    _logger.LogWarning($"Message requeued for retry {retryCount}/3");
+                }
+                else
+                {
+                    await _channel.BasicNackAsync(ea.DeliveryTag, false, false, cancellationToken);
+                }
             }
         };
-
+        
         await _channel.BasicConsumeAsync(queue: _options.CreateCarQueueName, autoAck: false, consumer: consumer, cancellationToken);
 
         await Task.Delay(1000, cancellationToken);

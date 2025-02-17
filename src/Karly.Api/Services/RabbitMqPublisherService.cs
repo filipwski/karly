@@ -18,7 +18,8 @@ public class RabbitMqPublisherService
         _options = options.Value;
     }
 
-    public async Task PublishMessage<T>(T message, CancellationToken cancellationToken = default) where T : CreateCarMessage
+    public async Task PublishMessage<T>(T message, CancellationToken cancellationToken = default)
+        where T : CreateCarMessage
     {
         var factory = new ConnectionFactory
         {
@@ -30,20 +31,26 @@ public class RabbitMqPublisherService
         await using var connection = await factory.CreateConnectionAsync(cancellationToken);
         await using var channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
-        await channel.QueueDeclareAsync(queue: _options.CreateCarQueueName, durable: true, exclusive: false, autoDelete: false, arguments: null, cancellationToken: cancellationToken);
+        await channel.QueueDeclareAsync(queue: _options.CreateCarQueueName, durable: true, exclusive: false,
+            autoDelete: false, arguments: new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", "dlx_exchange" },
+                { "x-dead-letter-routing-key", "dead_letter_routing_key" }
+            }!, cancellationToken: cancellationToken);
 
         var messageBody = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
-        
+
         var props = new BasicProperties
         {
             ContentType = "application/json",
             DeliveryMode = DeliveryModes.Persistent
         };
 
-        var addr = new PublicationAddress(exchangeType: ExchangeType.Direct, exchangeName: "", routingKey: _options.CreateCarQueueName);
+        var addr = new PublicationAddress(exchangeType: ExchangeType.Direct, exchangeName: "",
+            routingKey: _options.CreateCarQueueName);
 
         await channel.BasicPublishAsync(addr, props, messageBody, cancellationToken);
-        
+
         _logger.LogInformation($"Message published to queue {_options.CreateCarQueueName}");
     }
 }
