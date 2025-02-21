@@ -1,4 +1,3 @@
-using System.Text.Json;
 using Karly.Application.Database.EntityMapping;
 using Karly.Application.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,24 +19,24 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
 
         if (hostEnvironment.IsDevelopment())
         {
-            optionsBuilder.UseSeeding((context, _) =>
-            {
-                if (context.Set<Car>().FirstOrDefault() != null) return;
-
-                var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "ExampleCars.json");
-
-                if (!File.Exists(jsonFilePath))
-                {
-                    throw new FileNotFoundException($"Seed file not found: {jsonFilePath}");
-                }
-
-                var jsonString = File.ReadAllText(jsonFilePath);
-                var carList = JsonSerializer.Deserialize<List<Car>>(jsonString);
-                if (carList == null) return;
-
-                context.Set<Car>().AddRange(carList);
-                context.SaveChanges();
-            });
+            // optionsBuilder.UseSeeding((context, _) =>
+            // {
+            //     if (context.Set<Car>().FirstOrDefault() != null) return;
+            //
+            //     var jsonFilePath = Path.Combine(AppContext.BaseDirectory, "ExampleCars.json");
+            //
+            //     if (!File.Exists(jsonFilePath))
+            //     {
+            //         throw new FileNotFoundException($"Seed file not found: {jsonFilePath}");
+            //     }
+            //
+            //     var jsonString = File.ReadAllText(jsonFilePath);
+            //     var carList = JsonSerializer.Deserialize<List<Car>>(jsonString);
+            //     if (carList == null) return;
+            //
+            //     context.Set<Car>().AddRange(carList);
+            //     context.SaveChanges();
+            // });
         }
     }
 
