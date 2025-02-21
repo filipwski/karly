@@ -1,8 +1,7 @@
-namespace Karly.Application.Models;
+namespace Karly.Contracts.Messages;
 
-public class Car
+public record CreateCarMessage
 {
-    public Guid Id { get; init; }
     public required string Make { get; init; }
     public required string Model { get; init; }
     public required int ProductionYear { get; init; }
@@ -11,6 +10,5 @@ public class Car
     public required bool IsNew { get; init; }
     public required bool IsElectric { get; init; }
     public required bool HasAutomaticTransmission { get; init; }
-    public required string Description { get; set; }
-    public CarEmbedding? CarEmbedding { get; set; }
+    public required string Description { get; init; }
 }

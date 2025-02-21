@@ -10,6 +10,7 @@ namespace Karly.Application.Database;
 public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostEnvironment) : DbContext
 {
     public DbSet<Car> Cars => Set<Car>();
+    public DbSet<CarEmbedding> CarEmbeddings => Set<CarEmbedding>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
