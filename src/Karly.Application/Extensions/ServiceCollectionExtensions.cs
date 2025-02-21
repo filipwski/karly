@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+#pragma warning disable SKEXP0010
 using Karly.Application.Database;
 using Karly.Application.Services;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,6 @@ public static class ServiceCollectionExtensions
         return services;
     }
     
-    [Experimental("SKEXP0010")]
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ICarService, CarService>();
@@ -25,7 +24,6 @@ public static class ServiceCollectionExtensions
         services.AddSemanticKernelServices(configuration);
     }
 
-    [Experimental("SKEXP0010")]
     private static void AddSemanticKernelServices(this IServiceCollection services, IConfiguration configuration)
     {
         var openAiKey = configuration.GetValue<string>("OpenAiKey");

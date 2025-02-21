@@ -11,9 +11,7 @@ if (builder.Environment.IsDevelopment())
 }
 
 builder.Services.AddPostgresDbContext(builder.Configuration);
-#pragma warning disable SKEXP0010
 builder.Services.AddServices(builder.Configuration);
-#pragma warning restore SKEXP0010
 
 builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection("RabbitMq"));
 builder.Services.AddSingleton<RabbitMqConsumerService>();
