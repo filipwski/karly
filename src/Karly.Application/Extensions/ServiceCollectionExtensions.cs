@@ -32,6 +32,6 @@ public static class ServiceCollectionExtensions
         if (openAiKey == null) throw new Exception("OpenAiKey is required");
 
         services.AddKernel();
-        services.AddOpenAITextEmbeddingGeneration("text-embedding-ada-002", openAiKey);
+        services.AddOpenAITextEmbeddingGeneration("text-embedding-3-small", openAiKey);
     }
 }

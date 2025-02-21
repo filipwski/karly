@@ -35,7 +35,7 @@ public class CarsController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateCarCommand command, CancellationToken cancellationToken = default)
     {
         var message = command.MapToCreateCarMessage();
-        await _rabbitMqPublisherService.PublishMessage(message, cancellationToken);
+        await _rabbitMqPublisherService.PublishCreateCarMessage(message, cancellationToken);
         return Accepted($"Message published for processing: {message.Make} {message.Model}");
     }
 }

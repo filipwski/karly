@@ -18,8 +18,7 @@ public class RabbitMqPublisherService
         _options = options.Value;
     }
 
-    public async Task PublishMessage<T>(T message, CancellationToken cancellationToken = default)
-        where T : CreateCarMessage
+    public async Task PublishCreateCarMessage(CreateCarMessage message, CancellationToken cancellationToken = default)
     {
         var factory = new ConnectionFactory
         {
