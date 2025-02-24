@@ -1,6 +1,6 @@
 namespace Karly.Contracts.Utils;
 
-public record CarsJsonDto
+public record CarJsonDto
 {
     public required string Model { get; init; }
     public required string Description { get; init; }

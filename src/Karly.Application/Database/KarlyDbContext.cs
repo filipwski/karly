@@ -34,7 +34,7 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
                 }
 
                 var jsonString = File.ReadAllText(jsonFilePath);
-                var carsJsonDto = JsonSerializer.Deserialize<List<CarsJsonDto>>(jsonString);
+                var carsJsonDto = JsonSerializer.Deserialize<List<CarJsonDto>>(jsonString);
                 if (carsJsonDto == null) return;
 
                 var carList = carsJsonDto.Select(dto => new Car
