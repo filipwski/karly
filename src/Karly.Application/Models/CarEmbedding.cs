@@ -5,7 +5,7 @@ namespace Karly.Application.Models;
 public class CarEmbedding
 {
     public Guid Id { get; init; }
-    public required Guid CarId { get; init; }
+    public Guid CarId { get; init; }
     public Car? Car { get; init; }
     public Vector? Embedding { get; init; }
     

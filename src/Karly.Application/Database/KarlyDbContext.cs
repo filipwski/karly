@@ -1,9 +1,11 @@
 using System.Text.Json;
 using Karly.Application.Database.EntityMapping;
 using Karly.Application.Models;
+using Karly.Contracts.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Pgvector;
 
 namespace Karly.Application.Database;
 
@@ -32,8 +34,25 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
                 }
 
                 var jsonString = File.ReadAllText(jsonFilePath);
-                var carList = JsonSerializer.Deserialize<List<Car>>(jsonString);
-                if (carList == null) return;
+                var carsJsonDto = JsonSerializer.Deserialize<List<CarsJsonDto>>(jsonString);
+                if (carsJsonDto == null) return;
+
+                var carList = carsJsonDto.Select(dto => new Car
+                {
+                    Model = dto.Model,
+                    Description = dto.Description,
+                    Price = dto.Price,
+                    ProductionYear = dto.ProductionYear,
+                    HasAutomaticTransmission = dto.HasAutomaticTransmission,
+                    IsElectric = dto.IsElectric,
+                    IsNew = dto.IsNew,
+                    Make = dto.Make,
+                    Mileage = dto.Mileage,
+                    CarEmbedding = new CarEmbedding
+                    {
+                        Embedding = new Vector(dto.Embedding.ToArray())
+                    }
+                }).ToList();
 
                 context.Set<Car>().AddRange(carList);
                 context.SaveChanges();
