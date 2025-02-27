@@ -40,8 +40,6 @@ public class CarService(KarlyDbContext dbContext, ITextEmbeddingGenerationServic
             cancellationToken: cancellationToken);
         var queryVector = new Vector(queryEmbeddings[0].ToArray());
 
-        Console.WriteLine(queryVector.ToString());
-
         var cars = await dbContext.Cars
             .Include(car => car.CarEmbedding)
             .OrderBy(car => car.CarEmbedding!.Embedding!.L2Distance(queryVector))
