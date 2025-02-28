@@ -1,9 +1,9 @@
+#pragma warning disable SKEXP0001
 using Karly.Application.Database;
 using Karly.Application.Mapping;
 using Karly.Contracts.Commands;
 using Karly.Contracts.Responses;
 using Microsoft.SemanticKernel.Embeddings;
-#pragma warning disable SKEXP0001
 
 namespace Karly.Application.Services;
 

@@ -38,4 +38,12 @@ public class CarsController : ControllerBase
         await _rabbitMqPublisherService.PublishCreateCarMessage(message, cancellationToken);
         return Accepted($"Message published for processing: {message.Make} {message.Model}");
     }
+
+    [HttpPost(ApiEndpoints.Cars.Search)]
+    public async Task<IActionResult> Search([FromBody] SearchCarCommand command,
+        CancellationToken cancellationToken = default)
+    {
+        var carsDto = await _carService.SearchAsync(command.Input, cancellationToken);
+        return Ok(carsDto);
+    }
 }
