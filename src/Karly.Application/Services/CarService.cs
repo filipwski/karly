@@ -34,15 +34,14 @@ public class CarService(KarlyDbContext dbContext, ITextEmbeddingGenerationServic
 
     public async Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default)
     {
-        const double threshold = 0.9;
-
         var queryEmbeddings = await embeddingGenerationService.GenerateEmbeddingsAsync([input],
             cancellationToken: cancellationToken);
         var queryVector = new Vector(queryEmbeddings[0].ToArray());
 
         var cars = await dbContext.Cars
             .Include(car => car.CarEmbedding)
-            .OrderBy(car => car.CarEmbedding!.Embedding!.L2Distance(queryVector))
+            .Where(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector) < 1.1)
+            .OrderBy(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector) < 1.1)
             .Take(5)
             .ToListAsync(cancellationToken);
 
