@@ -40,8 +40,7 @@ public class CarService(KarlyDbContext dbContext, ITextEmbeddingGenerationServic
 
         var cars = await dbContext.Cars
             .Include(car => car.CarEmbedding)
-            .Where(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector) < 1.1)
-            .OrderBy(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector) < 1.1)
+            .OrderBy(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector))
             .Take(5)
             .ToListAsync(cancellationToken);
 
