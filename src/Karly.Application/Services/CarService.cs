@@ -1,3 +1,4 @@
+#pragma warning disable SKEXP0001
 using System.Text.Json;
 using Karly.Api.Services;
 using Karly.Application.Database;
@@ -6,6 +7,9 @@ using Karly.Contracts.Commands;
 using Karly.Contracts.Messages;
 using Karly.Contracts.Responses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.SemanticKernel.Embeddings;
+using Pgvector;
+using Pgvector.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Karly.Application.Services;
@@ -15,6 +19,7 @@ public interface ICarService
     public Task<CarDto?> GetAsync(Guid id, CancellationToken cancellationToken = default);
     public Task<CarsDto> GetAllAsync(CancellationToken cancellationToken = default);
     public Task<CarDto> Create(CreateCarCommand command, CancellationToken cancellationToken = default);
+    public Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default);
     public Task Generate(CancellationToken cancellationToken = default);
 }
 
@@ -23,8 +28,9 @@ public class CarService : ICarService
     private readonly ILogger<ICarService> _logger;
     private readonly KarlyDbContext _dbContext;
     private readonly RabbitMqPublisherService _rabbitMqPublisherService;
+    private readonly ITextEmbeddingGenerationService _embeddingGenerationService;
     
-    public CarService(ILogger<ICarService> logger, KarlyDbContext dbContext, RabbitMqPublisherService rabbitMqPublisherService)
+    public CarService(ILogger<ICarService> logger, KarlyDbContext dbContext, RabbitMqPublisherService rabbitMqPublisherService, ITextEmbeddingGenerationService embeddingGenerationService)
     {
         _logger = logger;
         _dbContext = dbContext;
@@ -94,5 +100,20 @@ public class CarService : ICarService
         _logger.LogInformation("Done. All car embeddings are applied.");
 
         throw new TimeoutException("Timed out waiting for car embeddings.");
+    }
+
+    public async Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default)
+    {
+        var queryEmbeddings = await _embeddingGenerationService.GenerateEmbeddingsAsync([input],
+            cancellationToken: cancellationToken);
+        var queryVector = new Vector(queryEmbeddings[0].ToArray());
+
+        var cars = await _dbContext.Cars
+            .Include(car => car.CarEmbedding)
+            .OrderBy(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector))
+            .Take(5)
+            .ToListAsync(cancellationToken);
+
+        return cars.MapToDto();
     }
 }
