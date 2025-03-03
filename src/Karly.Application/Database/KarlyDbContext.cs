@@ -1,12 +1,7 @@
-using System.Text.Json;
 using Karly.Application.Database.EntityMapping;
 using Karly.Application.Models;
-using Karly.Contracts.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Pgvector;
 
 namespace Karly.Application.Database;
 

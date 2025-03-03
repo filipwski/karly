@@ -1,10 +1,8 @@
 #pragma warning disable SKEXP0001
 using System.Text.Json;
-using Karly.Api.Services;
 using Karly.Application.Database;
 using Karly.Application.Mapping;
 using Karly.Contracts.Commands;
-using Karly.Contracts.Messages;
 using Karly.Contracts.Responses;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SemanticKernel.Embeddings;

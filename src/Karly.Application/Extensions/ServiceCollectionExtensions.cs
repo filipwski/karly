@@ -1,5 +1,4 @@
 #pragma warning disable SKEXP0010
-using Karly.Api.Services;
 using Karly.Application.Database;
 using Karly.Application.Services;
 using Microsoft.EntityFrameworkCore;
