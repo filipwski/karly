@@ -1,5 +1,4 @@
 using Karly.Api.Extensions;
-using Karly.Api.Services;
 using Karly.Application.Extensions;
 using Karly.Application.Options;
 
@@ -17,7 +16,6 @@ builder.Services.AddServices(configuration);
 #pragma warning restore SKEXP0010
 
 builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection("RabbitMq"));
-builder.Services.AddSingleton<RabbitMqPublisherService>();
 
 var app = builder.Build();
 

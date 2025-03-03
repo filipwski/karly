@@ -1,4 +1,5 @@
 #pragma warning disable SKEXP0010
+using Karly.Api.Services;
 using Karly.Application.Database;
 using Karly.Application.Services;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ public static class ServiceCollectionExtensions
     
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<RabbitMqPublisherService>();
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<ICarEmbeddingService, CarEmbeddingService>();
         services.AddSemanticKernelServices(configuration);

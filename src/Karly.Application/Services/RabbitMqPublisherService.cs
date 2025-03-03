@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Karly.Application.Options;
 using Karly.Contracts.Messages;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 

@@ -16,6 +16,7 @@
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.OpenAI" Version="1.36.1"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2"/>
         <PackageReference Include="Pgvector.EntityFrameworkCore" Version="0.2.1"/>
+        <PackageReference Include="RabbitMQ.Client" Version="7.0.0" />
     </ItemGroup>
 
     <ItemGroup>
