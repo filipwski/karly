@@ -50,7 +50,7 @@ public class CarsController : ControllerBase
     [HttpPost(ApiEndpoints.Cars.Generate)]
     public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
     {
-        await _carService.Generate(cancellationToken);
+        await _carService.RegenerateAsync(cancellationToken);
         return Ok();
     }
 }

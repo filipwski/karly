@@ -5,22 +5,34 @@ using Karly.Contracts.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Pgvector;
 
 namespace Karly.Application.Database;
 
-public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostEnvironment) : DbContext
+public class KarlyDbContext : DbContext
 {
+    private readonly ILogger<KarlyDbContext> _logger;
+    private readonly IConfiguration _configuration;
+    private readonly IHostEnvironment _hostEnvironment;
+    
+    public KarlyDbContext(ILogger<KarlyDbContext> logger, IConfiguration configuration, IHostEnvironment hostEnvironment)
+    {
+        _logger = logger;
+        _configuration = configuration;
+        _hostEnvironment = hostEnvironment;
+    }
+    
     public DbSet<Car> Cars => Set<Car>();
     public DbSet<CarEmbedding> CarEmbeddings => Set<CarEmbedding>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseNpgsql(
-            configuration.GetConnectionString("KarlyDbContext"),
+            _configuration.GetConnectionString("KarlyDbContext"),
             o => o.UseVector());
 
-        if (hostEnvironment.IsDevelopment())
+        if (_hostEnvironment.IsDevelopment())
         {
             optionsBuilder.UseSeeding((context, _) =>
             {
@@ -36,7 +48,10 @@ public class KarlyDbContext(IConfiguration configuration, IHostEnvironment hostE
                 var jsonString = File.ReadAllText(jsonFilePath);
                 var carsJsonDto = JsonSerializer.Deserialize<List<CarJsonDto>>(jsonString);
                 if (carsJsonDto == null) return;
-
+                
+                _logger.LogInformation(jsonString);
+                _logger.LogInformation($"Seeding {carsJsonDto.Count} cars from {jsonFilePath} path...");
+                
                 var carList = carsJsonDto.Select(dto => new Car
                 {
                     Model = dto.Model,
