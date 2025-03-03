@@ -35,6 +35,7 @@ public class CarService : ICarService
         _logger = logger;
         _dbContext = dbContext;
         _rabbitMqPublisherService = rabbitMqPublisherService;
+        _embeddingGenerationService = embeddingGenerationService;
     }
     
     public async Task<CarDto?> GetAsync(Guid id, CancellationToken cancellationToken = default) => (await _dbContext.Cars.FindAsync([id], cancellationToken))?.MapToDto();
