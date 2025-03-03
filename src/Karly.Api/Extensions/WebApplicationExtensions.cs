@@ -1,4 +1,5 @@
 using Karly.Application.Database;
+using Karly.Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Karly.Api.Extensions;
@@ -22,5 +23,11 @@ public static class WebApplicationExtensions
     
         app.Logger.LogInformation("Ensuring created.");
         dbContext.Database.EnsureCreated();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.Logger.LogInformation("Seeding database.");
+            dbContext.EnsureSeedData(app.Logger);
+        }
     }
 }

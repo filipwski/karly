@@ -75,7 +75,7 @@ public class CarService : ICarService
 
     private async Task WaitForCarEmbeddingsAsync(int amountOfEmbeddings, CancellationToken cancellationToken)
     {
-        const int delayMilliseconds = 5000;
+        const int delayMilliseconds = 10000;
         const int maxRetries = 30;
         var retryCount = 0;
 
