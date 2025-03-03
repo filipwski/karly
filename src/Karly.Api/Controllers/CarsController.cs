@@ -1,4 +1,3 @@
-using Karly.Api.Services;
 using Karly.Application.Mapping;
 using Karly.Application.Services;
 using Karly.Contracts.Commands;
@@ -45,5 +44,12 @@ public class CarsController : ControllerBase
     {
         var carsDto = await _carService.SearchAsync(command.Input, cancellationToken);
         return Ok(carsDto);
+    }
+
+    [HttpPost(ApiEndpoints.Cars.Generate)]
+    public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
+    {
+        await _carService.RegenerateAsync(cancellationToken);
+        return Ok();
     }
 }
