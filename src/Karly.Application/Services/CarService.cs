@@ -87,7 +87,8 @@ public class CarService : ICarService
             "Honda Civic 2019 (2.0L Gasoline) – Used Sedan. Conventional gasoline-powered sedan with a 2.0L inline-4 engine, automatic CVT transmission, and front-wheel drive (FWD). Fuel efficiency: 32 MPG city / 42 MPG highway. Mileage: 66,982 miles. Features: Honda Sensing Suite, 7-inch touchscreen with Apple CarPlay, dual-zone climate control. Ideal for daily commuting and long trips, offering reliability and low maintenance costs."
             **Input Data**:
             """);
-
+        
+        car.Description = string.Empty;
         history.AddUserMessage(JsonSerializer.Serialize(car));
 
         var response =
@@ -96,7 +97,6 @@ public class CarService : ICarService
         var description = response[^1].ToString();
         car.Description = description;
 
-        _dbContext.Cars.Update(car);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return car.MapToDto();
