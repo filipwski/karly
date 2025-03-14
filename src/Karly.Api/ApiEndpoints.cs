@@ -12,6 +12,7 @@ public static class ApiEndpoints
         public const string GetAll = Base;
         public const string Create = Base;
         public const string Generate = $"{Base}/Generate";
+        public const string GenerateDescription = $"{Base}/GenerateDescription/{{id:guid}}";
         public const string Search = $"{Base}/search";
     }
 }

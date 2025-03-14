@@ -46,6 +46,14 @@ public class CarsController : ControllerBase
         return Ok(carsDto);
     }
 
+    [HttpPatch(ApiEndpoints.Cars.GenerateDescription)]
+    public async Task<IActionResult> GenerateDescription([FromRoute] Guid id,
+        CancellationToken cancellationToken = default)
+    {
+        var carDto = await _carService.GenerateDescriptionAsync(id, cancellationToken);
+        return carDto == null ? NotFound() : Ok(carDto);
+    }
+
     [HttpPost(ApiEndpoints.Cars.Generate)]
     public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
     {
