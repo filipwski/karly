@@ -385,7 +385,7 @@ public class RabbitMqConsumerService
             
             var newEmbedding = new Vector(carIdAndEmbedding.Value);
 
-            if (carEmbedding.Embedding.Equals(newEmbedding))
+            if (carEmbedding.Embedding != null && carEmbedding.Embedding.Equals(newEmbedding))
             {
                 _logger.LogInformation($"Skipping update for CarId {carEmbedding.CarId}, embedding is identical.");
                 continue;

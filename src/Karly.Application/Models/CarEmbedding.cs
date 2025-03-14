@@ -10,6 +10,4 @@ public class CarEmbedding : IAuditable
     public required Vector? Embedding { get; set; }
     public DateTime CreatedAt { get; init; }
     public DateTime? UpdatedAt { get; set; }
-    
-    public string[] EmbeddingInputs(Car car) => new[] { $"Make: {car.Make}, Model: {car.Model}, Production year: {car.ProductionYear}, Mileage: {car.Mileage}, Is new: {car.IsNew}, Is Electric: {car.IsElectric}, Has automatic transmission: {car.HasAutomaticTransmission}, {car.Description}" };
 }

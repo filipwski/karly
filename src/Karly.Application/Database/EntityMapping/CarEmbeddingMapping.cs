@@ -21,5 +21,8 @@ public class CarEmbeddingMapping : IEntityTypeConfiguration<CarEmbedding>
             .Property(x => x.Embedding)
             .HasColumnType("vector(1536)")
             .IsRequired();
+
+        builder
+            .OwnsOne(e => e.Embedding);
     }
 }
