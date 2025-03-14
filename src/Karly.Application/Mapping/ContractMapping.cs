@@ -49,6 +49,14 @@ public static class ContractMapping
         };
     }
     
+    public static RegenerateCarEmbeddingsMessage MapToRegenerateCarEmbeddingsMessage(this CarsDto carsDto)
+    {
+        return new RegenerateCarEmbeddingsMessage
+        {
+            CarsDto = carsDto
+        };
+    }
+    
     public static CreateCarMessage MapToCreateCarMessage(this Car car)
     {
         return new CreateCarMessage
@@ -93,7 +101,8 @@ public static class ContractMapping
             IsNew = car.IsNew,
             IsElectric = car.IsElectric,
             HasAutomaticTransmission = car.HasAutomaticTransmission,
-            Description = car.Description
+            Description = car.Description,
+            CreatedAt = DateTime.UtcNow
         };
     }
     

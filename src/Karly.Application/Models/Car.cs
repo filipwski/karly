@@ -1,6 +1,6 @@
 namespace Karly.Application.Models;
 
-public class Car
+public class Car : IAuditable
 {
     public Guid Id { get; init; }
     public required string Make { get; init; }
@@ -12,5 +12,7 @@ public class Car
     public required bool IsElectric { get; init; }
     public required bool HasAutomaticTransmission { get; init; }
     public required string Description { get; set; }
+    public DateTime CreatedAt { get; init; }
+    public DateTime? UpdatedAt { get; set; }
     public CarEmbedding? CarEmbedding { get; set; }
 }

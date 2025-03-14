@@ -22,6 +22,8 @@ public class KarlyDbContext : DbContext
         optionsBuilder.UseNpgsql(
             _configuration.GetConnectionString("KarlyDbContext"),
             o => o.UseVector());
+        
+        optionsBuilder.AddInterceptors(new AuditableInterceptor());
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
