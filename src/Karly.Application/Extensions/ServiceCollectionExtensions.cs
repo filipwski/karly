@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         if (openAiKey == null) throw new Exception("OpenAiKey is required");
 
         services.AddKernel();
+        services.AddOpenAIChatCompletion("gpt-4o", openAiKey);
         services.AddOpenAITextEmbeddingGeneration("text-embedding-3-small", openAiKey);
     }
 }
