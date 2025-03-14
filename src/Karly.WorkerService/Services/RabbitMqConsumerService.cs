@@ -22,7 +22,8 @@ public class RabbitMqConsumerService
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public RabbitMqConsumerService(IOptions<RabbitMqOptions> options, ILogger<RabbitMqConsumerService> logger, IServiceScopeFactory scopeFactory)
+    public RabbitMqConsumerService(IOptions<RabbitMqOptions> options, ILogger<RabbitMqConsumerService> logger,
+        IServiceScopeFactory scopeFactory)
     {
         _options = options.Value;
         _logger = logger;
@@ -40,14 +41,21 @@ public class RabbitMqConsumerService
 
         _connection = await factory.CreateConnectionAsync(cancellationToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
-        
+
         await _channel.ExchangeDeclareAsync(
-            exchange: "car_creation_exchange",
+            exchange: "create_car_exchange",
             type: ExchangeType.Direct,
             durable: true,
             cancellationToken: cancellationToken
         );
-        
+
+        await _channel.ExchangeDeclareAsync(
+            exchange: "regenerate_car_embeddings_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+
         await _channel.QueueDeclareAsync(
             queue: _options.CreateCarQueueName,
             durable: true,
@@ -56,43 +64,91 @@ public class RabbitMqConsumerService
             arguments: new Dictionary<string, object>
             {
                 { "x-dead-letter-exchange", "dlx_exchange" },
-                { "x-dead-letter-routing-key", "dead_letter_routing_key" }
+                { "x-dead-letter-routing-key", $"{_options.CreateCarQueueName}.dlx" }
             }!,
             cancellationToken: cancellationToken
         );
-        
-        await _channel.QueueBindAsync(
-            queue: _options.CreateCarQueueName,
-            exchange: "car_creation_exchange",
-            routingKey: "car_creation_routing_key",
-            cancellationToken: cancellationToken
-        );
-        
-        await _channel.ExchangeDeclareAsync(
-            exchange: "retry_exchange",
-            type: ExchangeType.Direct,
-            durable: true,
-            cancellationToken: cancellationToken
-        );
-        
+
         await _channel.QueueDeclareAsync(
-            queue: "retry_queue",
+            queue: _options.RegenerateCarEmbeddingsQueueName,
             durable: true,
             exclusive: false,
             autoDelete: false,
             arguments: new Dictionary<string, object>
             {
-                { "x-dead-letter-exchange", "car_creation_exchange" },
-                { "x-dead-letter-routing-key", "car_creation_routing_key" },
+                { "x-dead-letter-exchange", "dlx_exchange" },
+                { "x-dead-letter-routing-key", $"{_options.RegenerateCarEmbeddingsQueueName}.dlx" }
+            }!,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueBindAsync(
+            queue: _options.CreateCarQueueName,
+            exchange: "create_car_exchange",
+            routingKey: "create_car_routing_key",
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueBindAsync(
+            queue: _options.RegenerateCarEmbeddingsQueueName,
+            exchange: "regenerate_car_embeddings_exchange",
+            routingKey: "regenerate_car_embeddings_routing_key",
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.ExchangeDeclareAsync(
+            exchange: "create_car_retry_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueDeclareAsync(
+            queue: "create_car_retry_queue",
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", "create_car_exchange" },
+                { "x-dead-letter-routing-key", "create_car_routing_key" },
                 { "x-message-ttl", 10000 }
             }!,
             cancellationToken: cancellationToken
         );
-        
+
         await _channel.QueueBindAsync(
-            queue: "retry_queue",
-            exchange: "retry_exchange",
-            routingKey: "retry_routing_key",
+            queue: "create_car_retry_queue",
+            exchange: "create_car_retry_exchange",
+            routingKey: "create_car_retry_routing_key",
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.ExchangeDeclareAsync(
+            exchange: "regenerate_car_embeddings_retry_exchange",
+            type: ExchangeType.Direct,
+            durable: true,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueDeclareAsync(
+            queue: "regenerate_car_embeddings_retry_queue",
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: new Dictionary<string, object>
+            {
+                { "x-dead-letter-exchange", "create_car_exchange" },
+                { "x-dead-letter-routing-key", "create_car_routing_key" },
+                { "x-message-ttl", 10000 }
+            }!,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueBindAsync(
+            queue: "regenerate_car_embeddings_retry_queue",
+            exchange: "regenerate_car_embeddings_retry_exchange",
+            routingKey: "regenerate_car_embeddings_retry_routing_key",
             cancellationToken: cancellationToken
         );
 
@@ -104,7 +160,7 @@ public class RabbitMqConsumerService
         );
 
         await _channel.QueueDeclareAsync(
-            queue: "dead_letter_queue",
+            queue: "create_car_dead_letter_queue",
             durable: true,
             exclusive: false,
             autoDelete: false,
@@ -113,9 +169,25 @@ public class RabbitMqConsumerService
         );
 
         await _channel.QueueBindAsync(
-            queue: "dead_letter_queue",
+            queue: "create_car_dead_letter_queue",
             exchange: "dlx_exchange",
-            routingKey: "dead_letter_routing_key",
+            routingKey: $"{_options.CreateCarQueueName}.dlx",
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueDeclareAsync(
+            queue: "regenerate_car_embeddings_dead_letter_queue",
+            durable: true,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null,
+            cancellationToken: cancellationToken
+        );
+
+        await _channel.QueueBindAsync(
+            queue: "regenerate_car_embeddings_dead_letter_queue",
+            exchange: "dlx_exchange",
+            routingKey: $"{_options.RegenerateCarEmbeddingsQueueName}.dlx",
             cancellationToken: cancellationToken
         );
 
@@ -125,60 +197,128 @@ public class RabbitMqConsumerService
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
 
-            try
-            {
-                _logger.LogInformation($"Received message: {message}");
+            _logger.LogInformation($"Received message: {TruncateString(message)}");
 
-                var carData = JsonSerializer.Deserialize<CreateCarMessage>(message);
-                if (carData != null)
+            using var document = JsonDocument.Parse(message);
+            if (!document.RootElement.TryGetProperty("Type", out JsonElement typeElement))
+            {
+                _logger.LogWarning("Received message without a Type field. Message: {Message}", message);
+                await _channel.BasicNackAsync(ea.DeliveryTag, false, false, cancellationToken);
+                return;
+            }
+
+            var messageType = typeElement.GetString();
+
+            if (messageType == nameof(CreateCarMessage))
+            {
+                try
                 {
-                    await ProcessCarCreationAsync(carData, cancellationToken);
-                    await _channel.BasicAckAsync(ea.DeliveryTag, false, cancellationToken);
+                    var carData = JsonSerializer.Deserialize<CreateCarMessage>(message);
+                    if (carData != null)
+                    {
+                        await ProcessCarCreationAsync(carData, cancellationToken);
+                        await _channel.BasicAckAsync(ea.DeliveryTag, false, cancellationToken);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var retryCount = ea.Redelivered ? 1 : 0;
+
+                    if (ea.BasicProperties.Headers != null &&
+                        ea.BasicProperties.Headers.TryGetValue("x-delivery-count", out var countObj))
+                    {
+                        retryCount = Convert.ToInt32(countObj) + 1;
+                    }
+
+                    _logger.LogError($"Error processing message. Retry count: {retryCount}. Error: {ex.Message}");
+
+                    if (retryCount < 3)
+                    {
+                        var updatedHeaders = ea.BasicProperties.Headers != null
+                            ? new Dictionary<string, object>(ea.BasicProperties.Headers!)
+                            : new Dictionary<string, object>();
+
+                        updatedHeaders["x-delivery-count"] = retryCount;
+
+                        var properties = new BasicProperties
+                        {
+                            Headers = updatedHeaders!
+                        };
+
+                        await _channel.BasicPublishAsync(
+                            exchange: "create_car_retry_exchange",
+                            routingKey: "create_car_retry_routing_key",
+                            mandatory: true,
+                            basicProperties: properties,
+                            body: ea.Body,
+                            cancellationToken
+                        );
+
+                        _logger.LogWarning($"Message requeued for retry {retryCount}/3");
+                    }
+                    else
+                    {
+                        await _channel.BasicNackAsync(ea.DeliveryTag, false, false, cancellationToken);
+                    }
                 }
             }
-            catch (Exception ex)
+            else if (messageType == nameof(RegenerateCarEmbeddingsMessage))
             {
-                var retryCount = ea.Redelivered ? 1 : 0;
-
-                if (ea.BasicProperties.Headers != null && ea.BasicProperties.Headers.TryGetValue("x-delivery-count", out var countObj))
+                try
                 {
-                    retryCount = Convert.ToInt32(countObj) + 1;
-                }
-
-                _logger.LogError($"Error processing message. Retry count: {retryCount}. Error: {ex.Message}");
-
-                if (retryCount < 3)
-                {
-                    var updatedHeaders = ea.BasicProperties.Headers != null
-                        ? new Dictionary<string, object>(ea.BasicProperties.Headers!)
-                        : new Dictionary<string, object>();
-
-                    updatedHeaders["x-delivery-count"] = retryCount;
-
-                    var properties = new BasicProperties
+                    var carData = JsonSerializer.Deserialize<RegenerateCarEmbeddingsMessage>(message);
+                    if (carData != null)
                     {
-                        Headers = updatedHeaders!
-                    };
-
-                    await _channel.BasicPublishAsync(
-                        exchange: "retry_exchange",
-                        routingKey: "retry_routing_key",
-                        mandatory: true,
-                        basicProperties: properties,
-                        body: ea.Body,
-                        cancellationToken
-                    );
-
-                    _logger.LogWarning($"Message requeued for retry {retryCount}/3");
+                        await ProcessRecreationOfEmbeddingsAsync(carData, cancellationToken);
+                        await _channel.BasicAckAsync(ea.DeliveryTag, false, cancellationToken);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await _channel.BasicNackAsync(ea.DeliveryTag, false, false, cancellationToken);
+                    var retryCount = ea.Redelivered ? 1 : 0;
+
+                    if (ea.BasicProperties.Headers != null &&
+                        ea.BasicProperties.Headers.TryGetValue("x-delivery-count", out var countObj))
+                    {
+                        retryCount = Convert.ToInt32(countObj) + 1;
+                    }
+
+                    _logger.LogError($"Error processing message. Retry count: {retryCount}. Error: {ex.Message}");
+
+                    if (retryCount < 3)
+                    {
+                        var updatedHeaders = ea.BasicProperties.Headers != null
+                            ? new Dictionary<string, object>(ea.BasicProperties.Headers!)
+                            : new Dictionary<string, object>();
+
+                        updatedHeaders["x-delivery-count"] = retryCount;
+
+                        var properties = new BasicProperties
+                        {
+                            Headers = updatedHeaders!
+                        };
+
+                        await _channel.BasicPublishAsync(
+                            exchange: "regenerate_car_embeddings_retry_exchange",
+                            routingKey: "regenerate_car_embeddings_retry_routing_key",
+                            mandatory: true,
+                            basicProperties: properties,
+                            body: ea.Body,
+                            cancellationToken
+                        );
+
+                        _logger.LogWarning($"Message requeued for retry {retryCount}/3");
+                    }
+                    else
+                    {
+                        await _channel.BasicNackAsync(ea.DeliveryTag, false, false, cancellationToken);
+                    }
                 }
             }
         };
-        
+
         await _channel.BasicConsumeAsync(queue: _options.CreateCarQueueName, autoAck: false, consumer: consumer, cancellationToken);
+        await _channel.BasicConsumeAsync(queue: _options.RegenerateCarEmbeddingsQueueName, autoAck: false, consumer: consumer, cancellationToken);
 
         await Task.Delay(1000, cancellationToken);
     }
@@ -202,9 +342,9 @@ public class RabbitMqConsumerService
 
         _logger.LogInformation($"Car created with ID: {createdCar.Id}");
 
-        var embeddings = await carEmbeddingService.GenerateEmbeddingsAsync(createdCar, cancellationToken);
+        var embedding = await carEmbeddingService.GenerateEmbeddingAsync(createdCar, cancellationToken);
 
-        if (embeddings == null || embeddings.Count == 0)
+        if (embedding == null)
         {
             throw new Exception("Failed to generate embeddings from OpenAI.");
         }
@@ -214,7 +354,7 @@ public class RabbitMqConsumerService
         var createEmbeddingCommand = new CreateCarEmbeddingCommand
         {
             CarId = createdCar.Id,
-            Embedding = new Vector(embeddings[0].ToArray())
+            Embedding = new Vector((ReadOnlyMemory<float>)embedding)
         };
 
         await carEmbeddingService.CreateCarEmbeddingEntityAsync(createEmbeddingCommand, cancellationToken);
@@ -226,5 +366,31 @@ public class RabbitMqConsumerService
         await transaction.CommitAsync(cancellationToken);
 
         _logger.LogInformation("Car creation process completed successfully.");
+    }
+
+    private async Task ProcessRecreationOfEmbeddingsAsync(RegenerateCarEmbeddingsMessage message, CancellationToken cancellationToken)
+    {
+        var carsDto = message.CarsDto;
+        
+        using var scope = _scopeFactory.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<KarlyDbContext>();
+        var carEmbeddingService = scope.ServiceProvider.GetRequiredService<ICarEmbeddingService>();
+        
+        var carIdAndEmbeddings = await carEmbeddingService.GenerateEmbeddingsAsync(carsDto, cancellationToken);
+
+        foreach (var carIdAndEmbedding in carIdAndEmbeddings!)
+        {
+            var car = dbContext.CarEmbeddings.Single(embedding => embedding.CarId == carIdAndEmbedding.Key);
+            car.Embedding = new Vector(carIdAndEmbedding.Value);
+        }
+
+        await dbContext.SaveChangesAsync(cancellationToken);
+        
+        _logger.LogInformation("Car embedding regeneration process completed successfully.");
+    }
+
+    private string TruncateString(string input, int length = 200)
+    {
+        return input.Length > length ? input.Substring(0, length) + "..." : input;
     }
 }

@@ -25,7 +25,8 @@ services:
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest
-      - RabbitMq__CreateCarQueueName=car_create_queue
+      - RabbitMq__CreateCarQueueName=create_car_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueueName=regenerate_car_embeddings_queue
     ports:
       - "8080:8080"
     depends_on:
@@ -58,7 +59,8 @@ services:
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest
-      - RabbitMq__CreateCarQueueName=car_create_queue
+      - RabbitMq__CreateCarQueueName=create_car_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueueName=regenerate_car_embeddings_queue
     depends_on:
       rabbitmq:
         condition: service_healthy

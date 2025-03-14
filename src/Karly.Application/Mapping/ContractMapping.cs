@@ -49,6 +49,14 @@ public static class ContractMapping
         };
     }
     
+    public static RegenerateCarEmbeddingsMessage MapToRegenerateCarEmbeddingsMessage(this CarsDto carsDto)
+    {
+        return new RegenerateCarEmbeddingsMessage
+        {
+            CarsDto = carsDto
+        };
+    }
+    
     public static CreateCarMessage MapToCreateCarMessage(this Car car)
     {
         return new CreateCarMessage

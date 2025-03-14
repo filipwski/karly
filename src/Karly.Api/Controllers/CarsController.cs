@@ -49,7 +49,9 @@ public class CarsController : ControllerBase
     [HttpPost(ApiEndpoints.Cars.Generate)]
     public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
     {
-        await _carService.RegenerateAsync(cancellationToken);
-        return Ok();
+        var cars = await _carService.GetAllAsync(cancellationToken);
+        var message = cars.MapToRegenerateCarEmbeddingsMessage();
+        await _rabbitMqPublisherService.PublishRegenerateCarEmbeddingsMessage(message, cancellationToken);
+        return Accepted($"Message published for processing: {cars.Items.Count} cars");
     }
 }
