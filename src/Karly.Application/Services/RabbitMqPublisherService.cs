@@ -29,24 +29,24 @@ public class RabbitMqPublisherService
 
     public async Task PublishCreateCarMessage(CreateCarMessage message, CancellationToken cancellationToken = default)
     {
-        await PublishMessage(message, _options.CreateCarQueueName, cancellationToken);
+        await PublishMessage(message, _options.CreateCarQueue, cancellationToken);
     }
 
     public async Task PublishRegenerateCarEmbeddingsMessage(RegenerateCarEmbeddingsMessage message, CancellationToken cancellationToken = default)
     {
-        await PublishMessage(message, _options.RegenerateCarEmbeddingsQueueName, cancellationToken);
+        await PublishMessage(message, _options.RegenerateCarEmbeddingsQueue, cancellationToken);
     }
 
-    private async Task PublishMessage<T>(T message, string queueName, CancellationToken cancellationToken = default)
+    private async Task PublishMessage<T>(T message, RabbitMqQueueConfig config, CancellationToken cancellationToken = default)
     {
         await using var connection = await _factory.CreateConnectionAsync(cancellationToken);
         await using var channel = await connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
-        await channel.QueueDeclareAsync(queue: queueName, durable: true, exclusive: false,
+        await channel.QueueDeclareAsync(queue: config.QueueName, durable: true, exclusive: false,
             autoDelete: false, arguments: new Dictionary<string, object>
             {
-                { "x-dead-letter-exchange", "dlx_exchange" },
-                { "x-dead-letter-routing-key", $"{queueName}.dlx" }
+                { "x-dead-letter-exchange", config.DeadLetterExchangeName },
+                { "x-dead-letter-routing-key", config.DeadLetterRoutingKey}
             }!, cancellationToken: cancellationToken);
 
         var messageBody = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(message));
@@ -57,10 +57,10 @@ public class RabbitMqPublisherService
             DeliveryMode = DeliveryModes.Persistent
         };
 
-        var addr = new PublicationAddress(exchangeType: ExchangeType.Direct, exchangeName: "", routingKey: queueName);
+        var addr = new PublicationAddress(exchangeType: ExchangeType.Direct, exchangeName: config.ExchangeName, routingKey: config.RoutingKey);
 
         await channel.BasicPublishAsync(addr, props, messageBody, cancellationToken);
 
-        _logger.LogInformation($"Message published to queue {queueName}");
+        _logger.LogInformation($"Message published to queue {config.QueueName}");
     }
 }
