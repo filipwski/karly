@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
     
     public static void AddServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddSingleton<RabbitMqPublisherService>();
         services.AddScoped<ICarService, CarService>();
         services.AddScoped<ICarEmbeddingService, CarEmbeddingService>();
         services.AddSemanticKernelServices(configuration);

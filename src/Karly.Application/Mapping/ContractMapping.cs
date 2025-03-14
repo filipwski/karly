@@ -7,6 +7,23 @@ namespace Karly.Application.Mapping;
 
 public static class ContractMapping
 {
+    public static CarJsonModel MapToCarJsonModel(this Car car)
+    {
+        return new CarJsonModel
+        {
+            Make = car.Make,
+            Model = car.Model,
+            Price = car.Price,
+            ProductionYear = car.ProductionYear,
+            Mileage = car.Mileage,
+            IsNew = car.IsNew,
+            IsElectric = car.IsElectric,
+            HasAutomaticTransmission = car.HasAutomaticTransmission,
+            Description = car.Description,
+            Embedding = car.CarEmbedding!.Embedding!.ToArray()
+        };
+    }
+    
     public static CarEmbedding MapToCarEmbedding(this CreateCarEmbeddingCommand carEmbedding)
     {
         return new CarEmbedding
@@ -17,6 +34,22 @@ public static class ContractMapping
     }
     
     public static CreateCarMessage MapToCreateCarMessage(this CreateCarCommand car)
+    {
+        return new CreateCarMessage
+        {
+            Make = car.Make,
+            Model = car.Model,
+            Price = car.Price,
+            ProductionYear = car.ProductionYear,
+            Mileage = car.Mileage,
+            IsNew = car.IsNew,
+            IsElectric = car.IsElectric,
+            HasAutomaticTransmission = car.HasAutomaticTransmission,
+            Description = car.Description
+        };
+    }
+    
+    public static CreateCarMessage MapToCreateCarMessage(this Car car)
     {
         return new CreateCarMessage
         {
