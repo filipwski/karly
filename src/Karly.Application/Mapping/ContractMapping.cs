@@ -101,7 +101,8 @@ public static class ContractMapping
             IsNew = car.IsNew,
             IsElectric = car.IsElectric,
             HasAutomaticTransmission = car.HasAutomaticTransmission,
-            Description = car.Description
+            Description = car.Description,
+            CreatedAt = DateTime.UtcNow
         };
     }
     

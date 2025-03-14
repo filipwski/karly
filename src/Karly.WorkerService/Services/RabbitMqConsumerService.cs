@@ -6,6 +6,7 @@ using Karly.Application.Options;
 using Karly.Application.Services;
 using Karly.Contracts.Commands;
 using Karly.Contracts.Messages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Pgvector;
 using RabbitMQ.Client;
@@ -380,13 +381,48 @@ public class RabbitMqConsumerService
 
         foreach (var carIdAndEmbedding in carIdAndEmbeddings!)
         {
-            var car = dbContext.CarEmbeddings.Single(embedding => embedding.CarId == carIdAndEmbedding.Key);
-            car.Embedding = new Vector(carIdAndEmbedding.Value);
+            var carEmbedding = dbContext.CarEmbeddings.Single(embedding => embedding.CarId == carIdAndEmbedding.Key);
+            
+            var newEmbedding = new Vector(carIdAndEmbedding.Value);
+
+            if (carEmbedding.Embedding.Equals(newEmbedding))
+            {
+                _logger.LogInformation($"Skipping update for CarId {carEmbedding.CarId}, embedding is identical.");
+                continue;
+            }
+
+            _logger.LogInformation($"Updating embedding for CarId {carEmbedding.CarId}");
+            carEmbedding.Embedding = newEmbedding;
+            dbContext.Entry(carEmbedding).State = EntityState.Modified;
         }
 
         await dbContext.SaveChangesAsync(cancellationToken);
         
-        _logger.LogInformation("Car embedding regeneration process completed successfully.");
+        _logger.LogInformation($"Car embedding regeneration process completed successfully. Regenerated {carIdAndEmbeddings.Count} embedding records.");
+
+        await ExportCarsToJsonAsync(dbContext, cancellationToken);
+    }
+    
+    private async Task ExportCarsToJsonAsync(KarlyDbContext dbContext, CancellationToken cancellationToken)
+    {
+        var carsJsonModel = await dbContext.Cars
+            .Include(c => c.CarEmbedding)
+            .Select(c => c.MapToCarJsonModel())
+            .ToListAsync(cancellationToken);
+        
+        var jsonString = JsonSerializer.Serialize(carsJsonModel, new JsonSerializerOptions
+        {
+            WriteIndented = true 
+        });
+    
+        var projectRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
+        var filePath = Path.Combine(projectRoot, "Karly.Application", "Database", "Resources", "ExampleCars.json");
+        
+        _logger.LogInformation($"Writing JSON to file: {filePath}");
+        
+        await File.WriteAllTextAsync(filePath, jsonString, cancellationToken);
+    
+        _logger.LogInformation("ExampleCars.json has been overriden successfully.");
     }
 
     private string TruncateString(string input, int length = 200)

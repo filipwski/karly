@@ -35,7 +35,7 @@ public class CarsController : ControllerBase
     {
         var message = command.MapToCreateCarMessage();
         await _rabbitMqPublisherService.PublishCreateCarMessage(message, cancellationToken);
-        return Accepted($"Message published for processing: {message.Make} {message.Model}");
+        return Accepted();
     }
 
     [HttpPost(ApiEndpoints.Cars.Search)]
@@ -46,12 +46,12 @@ public class CarsController : ControllerBase
         return Ok(carsDto);
     }
 
-    [HttpPost(ApiEndpoints.Cars.Generate)]
+    [HttpPost(ApiEndpoints.Cars.Regenerate)]
     public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
     {
         var cars = await _carService.GetAllAsync(cancellationToken);
         var message = cars.MapToRegenerateCarEmbeddingsMessage();
         await _rabbitMqPublisherService.PublishRegenerateCarEmbeddingsMessage(message, cancellationToken);
-        return Accepted($"Message published for processing: {cars.Items.Count} cars");
+        return Accepted();
     }
 }

@@ -49,41 +49,7 @@ public class CarService : ICarService
         await _dbContext.Cars.AddAsync(car, cancellationToken);
         return car.MapToDto();
     }
-
-    // public async Task RegenerateAsync(CancellationToken cancellationToken = default)
-    // {
-    //     var carsDto = (await _dbContext.Cars.ToListAsync(cancellationToken)).MapToDto();
-    //     
-    //     var carIdAndEmbedding = _embeddingGenerationService.GenerateEmbeddingsAsync()
-    //     
-    //     _logger.LogInformation($"New embeddings to regenerate: {createCarMessages.Count}.");
-    //
-    //     await ExportCarsToJsonAsync(cancellationToken);
-    // }
-    //
-    // private async Task ExportCarsToJsonAsync(CancellationToken cancellationToken)
-    // {
-    //     var carsJsonModel = await _dbContext.Cars
-    //         .Include(c => c.CarEmbedding)
-    //         .Select(c => c.MapToCarJsonModel())
-    //         .ToListAsync(cancellationToken);
-    //     
-    //     var jsonString = JsonSerializer.Serialize(carsJsonModel, new JsonSerializerOptions
-    //     {
-    //         WriteIndented = true 
-    //     });
-    //
-    //     var projectRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
-    //     var filePath = Path.Combine(projectRoot, "Karly.Application", "Database", "Resources", "ExampleCars.json");
-    //     
-    //     _logger.LogInformation($"Writing JSON to file: {filePath}");
-    //     
-    //     await File.WriteAllTextAsync(filePath, jsonString, cancellationToken);
-    //
-    //     _logger.LogInformation("ExampleCars.json has been overriden successfully.");
-    // }
-
-
+    
     public async Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default)
     {
         var queryEmbeddings = await _embeddingGenerationService.GenerateEmbeddingsAsync([input],

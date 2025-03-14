@@ -33,5 +33,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\20250314142705_AddIAuditableInterface.cs" />
+      <Compile Remove="Migrations\20250314142705_AddIAuditableInterface.Designer.cs" />
+    </ItemGroup>
     
 </Project>
