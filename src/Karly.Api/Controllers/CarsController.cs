@@ -47,7 +47,7 @@ public class CarsController : ControllerBase
     }
 
     [HttpPost(ApiEndpoints.Cars.Regenerate)]
-    public async Task<IActionResult> Generate(CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Regenerate(CancellationToken cancellationToken = default)
     {
         var cars = await _carService.GetAllAsync(cancellationToken);
         var message = cars.MapToRegenerateCarEmbeddingsMessage();

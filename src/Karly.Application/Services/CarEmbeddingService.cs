@@ -3,6 +3,7 @@ using Karly.Application.Database;
 using Karly.Application.Mapping;
 using Karly.Contracts.Commands;
 using Karly.Contracts.Responses;
+using Microsoft.Extensions.Logging;
 using Microsoft.SemanticKernel.Embeddings;
 
 namespace Karly.Application.Services;
@@ -16,11 +17,13 @@ public interface ICarEmbeddingService
 
 public class CarEmbeddingService : ICarEmbeddingService
 {
+    private readonly ILogger<CarEmbeddingService> _logger;
     private readonly KarlyDbContext _karlyDbContext;
     private readonly ITextEmbeddingGenerationService _embeddingGenerationService;
 
-    public CarEmbeddingService(KarlyDbContext karlyDbContext, ITextEmbeddingGenerationService embeddingGenerationService)
+    public CarEmbeddingService(ILogger<CarEmbeddingService> logger, KarlyDbContext karlyDbContext, ITextEmbeddingGenerationService embeddingGenerationService)
     {
+        _logger = logger;
         _karlyDbContext = karlyDbContext;
         _embeddingGenerationService = embeddingGenerationService;
     }
@@ -33,17 +36,8 @@ public class CarEmbeddingService : ICarEmbeddingService
     
     public async Task<ReadOnlyMemory<float>?> GenerateEmbeddingAsync(CarDto carDto, CancellationToken cancellationToken = default)
     {
-        try
-        {
-            var input = GenerateEmbeddingsInput(carDto);
-            var embeddings = await _embeddingGenerationService.GenerateEmbeddingsAsync([input], cancellationToken: cancellationToken);
-            return embeddings[0];
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine($"Error while generating embeddings: {exception.Message}");
-            return null;
-        }
+        var carIdAndEmbedding = await GenerateEmbeddingsAsync(new CarsDto{Items = [carDto]}, cancellationToken);
+        return carIdAndEmbedding!.Single().Value;
     }
     
     public async Task<Dictionary<Guid, float[]>?> GenerateEmbeddingsAsync(CarsDto carsDto, CancellationToken cancellationToken = default)
@@ -67,8 +61,8 @@ public class CarEmbeddingService : ICarEmbeddingService
         }
         catch (Exception exception)
         {
-            Console.WriteLine($"Error while generating embeddings: {exception.Message}");
-            return null;
+            _logger.LogError($"Error while generating embeddings: {exception.Message}");
+            throw;
         }
     }
     
