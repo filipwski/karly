@@ -36,7 +36,7 @@ public class CarEmbeddingService : ICarEmbeddingService
     
     public async Task<ReadOnlyMemory<float>?> GenerateEmbeddingAsync(CarDto carDto, CancellationToken cancellationToken = default)
     {
-        var carIdAndEmbedding = await GenerateEmbeddingsAsync(new CarsDto{Items = [carDto]}, cancellationToken);
+        var carIdAndEmbedding = await GenerateEmbeddingsAsync(new CarsDto { Items = [carDto] }, cancellationToken);
         return carIdAndEmbedding!.Single().Value;
     }
     
