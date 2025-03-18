@@ -25,7 +25,24 @@ services:
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest
-      - RabbitMq__CreateCarQueueName=car_create_queue
+      - RabbitMq__CreateCarQueue__QueueName=create_car_queue
+      - RabbitMq__CreateCarQueue__RoutingKey=create_car_routing_key
+      - RabbitMq__CreateCarQueue__RetryExchangeName=create_car_retry_exchange
+      - RabbitMq__CreateCarQueue__RetryQueueName=create_car_retry_queue
+      - RabbitMq__CreateCarQueue__RetryRoutingKey=create_car_retry_routing_key
+      - RabbitMq__CreateCarQueue__DeadLetterExchangeName=dlx_exchange
+      - RabbitMq__CreateCarQueue__DeadLetterQueueName=create_car_dlx_queue
+      - RabbitMq__CreateCarQueue__DeadLetterRoutingKey=create_car_dlx_routing_key
+      
+      - RabbitMq__RegenerateCarEmbeddingsQueue__ExchangeName=regenerate_car_embeddings_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__QueueName=regenerate_car_embeddings_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RoutingKey=regenerate_car_embeddings_routing_key
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryExchangeName=regenerate_car_embeddings_retry_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryQueueName=regenerate_car_embeddings_retry_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryRoutingKey=regenerate_car_embeddings_routing_key
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterExchangeName=dlx_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterQueueName=regenerate_car_embeddings_dlx_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterRoutingKey=regenerate_car_embeddings_dlx_routing_key
     ports:
       - "8080:8080"
     depends_on:
@@ -58,7 +75,25 @@ services:
       - RabbitMq__HostName=rabbitmq
       - RabbitMq__UserName=guest
       - RabbitMq__Password=guest
-      - RabbitMq__CreateCarQueueName=car_create_queue
+      - RabbitMq__CreateCarQueue__ExchangeName=create_car_exchange
+      - RabbitMq__CreateCarQueue__QueueName=create_car_queue
+      - RabbitMq__CreateCarQueue__RoutingKey=create_car_routing_key
+      - RabbitMq__CreateCarQueue__RetryExchangeName=create_car_retry_exchange
+      - RabbitMq__CreateCarQueue__RetryQueueName=create_car_retry_queue
+      - RabbitMq__CreateCarQueue__RetryRoutingKey=create_car_retry_routing_key
+      - RabbitMq__CreateCarQueue__DeadLetterExchangeName=dlx_exchange
+      - RabbitMq__CreateCarQueue__DeadLetterQueueName=create_car_dlx_queue
+      - RabbitMq__CreateCarQueue__DeadLetterRoutingKey=create_car_dlx_routing_key
+      
+      - RabbitMq__RegenerateCarEmbeddingsQueue__ExchangeName=regenerate_car_embeddings_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__QueueName=regenerate_car_embeddings_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RoutingKey=regenerate_car_embeddings_routing_key
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryExchangeName=regenerate_car_embeddings_retry_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryQueueName=regenerate_car_embeddings_retry_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__RetryRoutingKey=regenerate_car_embeddings_routing_key
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterExchangeName=dlx_exchange
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterQueueName=regenerate_car_embeddings_dlx_queue
+      - RabbitMq__RegenerateCarEmbeddingsQueue__DeadLetterRoutingKey=regenerate_car_embeddings_dlx_routing_key
     depends_on:
       rabbitmq:
         condition: service_healthy
