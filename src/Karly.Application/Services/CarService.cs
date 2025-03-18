@@ -18,7 +18,7 @@ public interface ICarService
     public Task<CarsDto> GetAllAsync(CancellationToken cancellationToken = default);
     public Task<CarDto> Create(CreateCarCommand command, CancellationToken cancellationToken = default);
     public Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default);
-    public Task RegenerateAsync(CancellationToken cancellationToken = default);
+    // public Task RegenerateAsync(CancellationToken cancellationToken = default);
 }
 
 public class CarService : ICarService
@@ -49,75 +49,7 @@ public class CarService : ICarService
         await _dbContext.Cars.AddAsync(car, cancellationToken);
         return car.MapToDto();
     }
-
-    public async Task RegenerateAsync(CancellationToken cancellationToken = default)
-    {
-        var createCarMessages = _dbContext.Cars.Select(ContractMapping.MapToCreateCarMessage).ToList();
-        
-        _logger.LogInformation("Deleting all the old cars and embeddings.");
-
-        _dbContext.CarEmbeddings.RemoveRange(_dbContext.CarEmbeddings);
-        _dbContext.Cars.RemoveRange(_dbContext.Cars);
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        
-        _logger.LogInformation($"New embeddings to regenerate: {createCarMessages.Count}.");
-
-        var tasks = createCarMessages.Select(car => _rabbitMqPublisherService.PublishCreateCarMessage(car, cancellationToken)).ToList();
-        await Task.WhenAll(tasks);
-
-        await WaitForCarEmbeddingsAsync(tasks.Count, cancellationToken);
-
-        await ExportCarsToJsonAsync(cancellationToken);
-    }
-
-    private async Task WaitForCarEmbeddingsAsync(int amountOfEmbeddings, CancellationToken cancellationToken)
-    {
-        const int delayMilliseconds = 10000;
-        const int maxRetries = 30;
-        var retryCount = 0;
-
-        while (retryCount < maxRetries)
-        {
-            _logger.LogInformation("Waiting for car embeddings.");
-
-            var allTheEmbeddingsAreRegenerated = _dbContext.Cars.Count() == amountOfEmbeddings;
-            if (allTheEmbeddingsAreRegenerated)
-            {
-                _logger.LogInformation("Done. All car embeddings are applied.");
-                return;
-            }
-
-            retryCount++;
-            await Task.Delay(delayMilliseconds, cancellationToken);
-        }
-
-        throw new TimeoutException("Timed out waiting for car embeddings.");
-    }
-
-    private async Task ExportCarsToJsonAsync(CancellationToken cancellationToken)
-    {
-        var carsJsonModel = await _dbContext.Cars
-            .Include(c => c.CarEmbedding)
-            .Select(c => c.MapToCarJsonModel())
-            .ToListAsync(cancellationToken);
-        
-        var jsonString = JsonSerializer.Serialize(carsJsonModel, new JsonSerializerOptions
-        {
-            WriteIndented = true 
-        });
-
-        var projectRoot = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
-        var filePath = Path.Combine(projectRoot, "Karly.Application", "Database", "Resources", "ExampleCars.json");
-        
-        _logger.LogInformation($"Writing JSON to file: {filePath}");
-        
-        await File.WriteAllTextAsync(filePath, jsonString, cancellationToken);
-
-        _logger.LogInformation("ExampleCars.json has been overriden successfully.");
-    }
-
-
+    
     public async Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default)
     {
         var queryEmbeddings = await _embeddingGenerationService.GenerateEmbeddingsAsync([input],
