@@ -65,9 +65,4 @@ public class CarEmbeddingService : ICarEmbeddingService
             throw;
         }
     }
-    
-    private string GenerateEmbeddingsInput(CarDto carDto)
-    {
-        return $"Make: {carDto.Make}, Model: {carDto.Model}, Production year: {carDto.ProductionYear}, Mileage: {carDto.Mileage}, Is new: {carDto.IsNew}, Is Electric: {carDto.IsElectric}, Has automatic transmission: {carDto.HasAutomaticTransmission}, {carDto.Description}";
-    }
 }

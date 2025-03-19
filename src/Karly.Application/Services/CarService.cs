@@ -61,11 +61,12 @@ public class CarService : ICarService
         history.AddUserMessage(
             """
             Generate a detailed, technical, and context-rich description for a car in a catalog. Follow these rules:
-            1. **Avoid negative terms** for non-EVs (e.g., do NOT write "electric: false", "not electric", "no EV components").  
-            2. **Focus on unambiguous keywords**:
+            1. **Avoid negative terms** for non-EVs (e.g., do NOT write "electric: false", "not electric", "no EV components").
+            2. **Avoid these words: audio, focus**, and any others that contain or are synonyms of popular car brands or models.
+            3. **Focus on unambiguous keywords**:
                - For non-EVs: Use terms like "gasoline", "diesel", "hybrid (non plug-in)", "MPG", "engine displacement", "fuel efficiency".
                - For EVs: Use "EV", "electric motor", "battery capacity", "DC charging", "zero emissions".
-            3. **Include**:
+            4. **Include**:
                - Engine specs (e.g., "2.0L inline-4", "turbocharged").
                - Transmission type (e.g., "automatic CVT", "manual 6-speed").
                - Fuel/energy consumption (e.g., "32 MPG city", "4.5L/100km", "400 km range (WLTP)").
@@ -73,7 +74,7 @@ public class CarService : ICarService
                - Use-case context (e.g., "ideal for city driving", "long-distance comfort", "family-friendly").
                - Do not include any line breaks.
                - Do not include any quote characters. The answer should be raw text.
-            4. **Structure**:  
+            5. **Structure**:  
                [Make] [Model] [Year] ([Engine Type]) – [New/Used] [Body Type].  
                [Core attributes: fuel type, transmission, drivetrain].  
                [Specs: fuel efficiency, mileage (if used)].  
