@@ -301,7 +301,14 @@ public class RabbitMqConsumerService
         using var scope = _scopeFactory.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<KarlyDbContext>();
         var carEmbeddingService = scope.ServiceProvider.GetRequiredService<ICarEmbeddingService>();
+        var carService = scope.ServiceProvider.GetRequiredService<ICarService>();
+        
+        _logger.LogInformation("Updating descriptions for cars");
 
+        await carService.GenerateAndUpdateDescriptionsAsync(carsDto, cancellationToken);
+        
+        _logger.LogInformation("Cars description regeneration process completed successfully");
+        
         var carIdAndEmbeddings = await carEmbeddingService.GenerateEmbeddingsAsync(carsDto, cancellationToken);
 
         foreach (var carIdAndEmbedding in carIdAndEmbeddings!)

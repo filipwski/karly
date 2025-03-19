@@ -50,7 +50,7 @@ public class CarsController : ControllerBase
     public async Task<IActionResult> GenerateDescription([FromRoute] Guid id,
         CancellationToken cancellationToken = default)
     {
-        var carDto = await _carService.GenerateDescriptionAsync(id, cancellationToken);
+        var carDto = await _carService.GenerateAndUpdateDescriptionAsync(id, cancellationToken);
         return carDto == null ? NotFound() : Ok(carDto);
     }
 

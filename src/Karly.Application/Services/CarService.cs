@@ -19,7 +19,8 @@ public interface ICarService
     public Task<CarsDto> GetAllAsync(CancellationToken cancellationToken = default);
     public Task<CarDto> Create(CreateCarCommand command, CancellationToken cancellationToken = default);
     public Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default);
-    public Task<CarDto?> GenerateDescriptionAsync(Guid id, CancellationToken cancellationToken = default);
+    Task GenerateAndUpdateDescriptionsAsync(CarsDto carsDto, CancellationToken cancellationToken = default);
+    public Task<CarDto?> GenerateAndUpdateDescriptionAsync(Guid id, CancellationToken cancellationToken = default);
 }
 
 public class CarService : ICarService
@@ -51,12 +52,39 @@ public class CarService : ICarService
         await _dbContext.Cars.AddAsync(car, cancellationToken);
         return car.MapToDto();
     }
-
-    public async Task<CarDto?> GenerateDescriptionAsync(Guid id, CancellationToken cancellationToken = default)
+    
+    public async Task<CarDto?> GenerateAndUpdateDescriptionAsync(Guid id, CancellationToken cancellationToken = default)
     {
         var car = await _dbContext.Cars.FindAsync([id], cancellationToken);
         if (car == null) return null;
 
+        var carIdAndDescription = await GenerateDescriptionAsync(car.MapToDto(), cancellationToken);
+        
+        car.Description = carIdAndDescription.Description;
+        
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return car.MapToDto();
+    }
+    
+    public async Task GenerateAndUpdateDescriptionsAsync(CarsDto carsDto, CancellationToken cancellationToken = default)
+    {
+        var tasks = carsDto.Items.Select(car => GenerateDescriptionAsync(car, cancellationToken));
+        var carIdAndDescriptionArray = await Task.WhenAll(tasks);
+        
+        foreach (var carIdAndDescription in carIdAndDescriptionArray)
+        {
+            var car = await _dbContext.Cars.FindAsync([carIdAndDescription.Item1], cancellationToken);
+            if (car == null)
+            {
+                continue;
+            }
+            car.Description = carIdAndDescription.Item2;
+        }
+    }
+
+    private async Task<(Guid Id, string Description)> GenerateDescriptionAsync(CarDto carDto, CancellationToken cancellationToken = default)
+    {
         ChatHistory history = [];
         history.AddUserMessage(
             """
@@ -86,18 +114,13 @@ public class CarService : ICarService
             **Input Data**:
             """);
 
-        car.Description = string.Empty;
-        history.AddUserMessage(JsonSerializer.Serialize(car));
+        history.AddUserMessage(JsonSerializer.Serialize(carDto));
 
-        var response =
-            await _chatCompletionService.GetChatMessageContentsAsync(history, cancellationToken: cancellationToken);
+        var response = await _chatCompletionService.GetChatMessageContentsAsync(history, cancellationToken: cancellationToken);
 
         var description = response[^1].ToString();
-        car.Description = description;
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return car.MapToDto();
+        
+        return (carDto.Id, description);
     }
 
     public async Task<CarsDto> SearchAsync(string input, CancellationToken cancellationToken = default)
@@ -117,16 +140,18 @@ public class CarService : ICarService
 
         var firstCarCosineDistance = carsDto.First().Distance;
         
-        return carsDto.Where(car => car.Distance - firstCarCosineDistance < 0.1).MapToDto();
+        return carsDto.Where(car => car.Distance - firstCarCosineDistance < 0.1 && car.Distance < 0.85).MapToDto();
     }
     
     private static double CosineDistance(float[] a, float[] b)
     {
         if (a.Length != b.Length)
-            throw new ArgumentException("Vectors must be of the same length");
-
+        {
+            throw new ArgumentException("Vectors must be of the same length");    
+        }
+        
         double dot = 0.0, magA = 0.0, magB = 0.0;
-        for (int i = 0; i < a.Length; i++)
+        for (var i = 0; i < a.Length; i++)
         {
             dot += a[i] * b[i];
             magA += a[i] * a[i];
