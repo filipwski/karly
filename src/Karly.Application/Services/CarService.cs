@@ -26,17 +26,15 @@ public class CarService : ICarService
 {
     private readonly ILogger<ICarService> _logger;
     private readonly KarlyDbContext _dbContext;
-    private readonly RabbitMqPublisherService _rabbitMqPublisherService;
     private readonly ITextEmbeddingGenerationService _embeddingGenerationService;
     private readonly IChatCompletionService _chatCompletionService;
 
     public CarService(ILogger<ICarService> logger, KarlyDbContext dbContext,
-        RabbitMqPublisherService rabbitMqPublisherService, ITextEmbeddingGenerationService embeddingGenerationService,
+        ITextEmbeddingGenerationService embeddingGenerationService,
         IChatCompletionService chatCompletionService)
     {
         _logger = logger;
         _dbContext = dbContext;
-        _rabbitMqPublisherService = rabbitMqPublisherService;
         _embeddingGenerationService = embeddingGenerationService;
         _chatCompletionService = chatCompletionService;
     }
@@ -86,11 +84,12 @@ public class CarService : ICarService
             "Honda Civic 2019 (2.0L Gasoline) – Used Sedan. Conventional gasoline-powered sedan with a 2.0L inline-4 engine, automatic CVT transmission, and front-wheel drive (FWD). Fuel efficiency: 32 MPG city / 42 MPG highway. Mileage: 66,982 miles. Features: Honda Sensing Suite, 7-inch touchscreen with Apple CarPlay, dual-zone climate control. Ideal for daily commuting and long trips, offering reliability and low maintenance costs."
             **Input Data**:
             """);
-        
+
         car.Description = string.Empty;
         history.AddUserMessage(JsonSerializer.Serialize(car));
 
-        var response = await _chatCompletionService.GetChatMessageContentsAsync(history, cancellationToken: cancellationToken);
+        var response =
+            await _chatCompletionService.GetChatMessageContentsAsync(history, cancellationToken: cancellationToken);
 
         var description = response[^1].ToString();
         car.Description = description;
@@ -106,12 +105,33 @@ public class CarService : ICarService
             cancellationToken: cancellationToken);
         var queryVector = new Vector(queryEmbeddings[0].ToArray());
 
-        var cars = await _dbContext.Cars
-            .Include(car => car.CarEmbedding)
+        var carsQuery = _dbContext.Cars.Include(car => car.CarEmbedding);
+
+        var result = await carsQuery
             .OrderBy(car => car.CarEmbedding!.Embedding!.CosineDistance(queryVector))
             .Take(5)
             .ToListAsync(cancellationToken);
+        
+        var carsDto = result.Select(c => c.MapToDto(CosineDistance(c.CarEmbedding!.Embedding!.ToArray(), queryVector.ToArray()))).ToList();
 
-        return cars.MapToDto();
+        var firstCarCosineDistance = carsDto.First().Distance;
+        
+        return carsDto.Where(car => car.Distance - firstCarCosineDistance < 0.1).MapToDto();
+    }
+    
+    private static double CosineDistance(float[] a, float[] b)
+    {
+        if (a.Length != b.Length)
+            throw new ArgumentException("Vectors must be of the same length");
+
+        double dot = 0.0, magA = 0.0, magB = 0.0;
+        for (int i = 0; i < a.Length; i++)
+        {
+            dot += a[i] * b[i];
+            magA += a[i] * a[i];
+            magB += b[i] * b[i];
+        }
+
+        return 1 - dot / (Math.Sqrt(magA) * Math.Sqrt(magB));
     }
 }

@@ -45,7 +45,7 @@ public class CarEmbeddingService : ICarEmbeddingService
         try
         {
             var inputsList = carsDto.Items
-                .Select(car => new { id = car.Id, input = GenerateEmbeddingsInput(car) })
+                .Select(car => new { id = car.Id, input = car.Description })
                 .ToList();
             
             var embeddings = await _embeddingGenerationService.GenerateEmbeddingsAsync(inputsList.Select(kv => kv.input).ToList(), cancellationToken: cancellationToken);
