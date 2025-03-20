@@ -28,10 +28,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="../Karly.Application/Database/Resources/*.json">
+        <None Update="../Karly.Application/Database/Resources/*">
             <TargetPath>%(Filename)%(Extension)</TargetPath>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Remove="Database\Resources\script.js"/>
     </ItemGroup>
 
     <ItemGroup>
