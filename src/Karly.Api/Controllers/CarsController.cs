@@ -1,6 +1,7 @@
 using Karly.Application.Mapping;
 using Karly.Application.Services;
 using Karly.Contracts.Commands;
+using Karly.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Karly.Api.Controllers;
@@ -51,7 +52,13 @@ public class CarsController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var carDto = await _carService.GenerateAndUpdateDescriptionAsync(id, cancellationToken);
-        return carDto == null ? NotFound() : Ok(carDto);
+        if (carDto == null) return NotFound();
+
+        var carsDto = new CarsDto { Items = new List<CarDto> { carDto } };
+        await _rabbitMqPublisherService.PublishRegenerateCarEmbeddingsMessage(
+            carsDto.MapToRegenerateCarEmbeddingsMessage(), cancellationToken);
+
+        return Ok(carDto);
     }
 
     [HttpPost(ApiEndpoints.Cars.Regenerate)]
