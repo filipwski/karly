@@ -119,12 +119,35 @@ public static class ContractMapping
             IsNew = car.IsNew,
             IsElectric = car.IsElectric,
             HasAutomaticTransmission = car.HasAutomaticTransmission,
-            Description = car.Description
+            Description = car.Description,
         };
     }
-
+    
+    public static CarDto MapToDto(this Car car, double distance)
+    {
+        return new CarDto
+        {
+            Id = car.Id,
+            Make = car.Make,
+            Model = car.Model,
+            Price = car.Price,
+            ProductionYear = car.ProductionYear,
+            Mileage = car.Mileage,
+            IsNew = car.IsNew,
+            IsElectric = car.IsElectric,
+            HasAutomaticTransmission = car.HasAutomaticTransmission,
+            Description = car.Description,
+            Distance = distance
+        };
+    }
+    
     public static CarsDto MapToDto(this IEnumerable<Car> cars)
     {
-        return new CarsDto { Items = cars.Select(MapToDto).ToList() };
+        return new CarsDto { Items = cars.Select(car => car.MapToDto()).ToList() };
+    }
+
+    public static CarsDto MapToDto(this IEnumerable<CarDto> cars)
+    {
+        return new CarsDto { Items = cars.Select(car => car).ToList() };
     }
 }

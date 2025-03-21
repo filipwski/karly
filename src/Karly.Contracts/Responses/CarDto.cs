@@ -10,6 +10,7 @@ public record CarDto
     public required bool IsNew { get; init; }
     public required bool IsElectric { get; init; }
     public required bool HasAutomaticTransmission { get; init; }
-    public required string Description { get; init; }
+    public required string Description { get; set; }
     public required decimal Price { get; init; }
+    public double? Distance { get; init; }
 }
