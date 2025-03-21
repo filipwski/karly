@@ -121,7 +121,17 @@ public class CarService : ICarService
         
         return carsDto.Where(car => car.Distance - firstCarCosineDistance < 0.1 && car.Distance < 0.85).MapToDto();
     }
-    
+
+    /// <summary>
+    ///     Calculates the cosine distance between two vectors in a multidimensional space.
+    ///     This function is used to compare query embeddings with vehicle description embeddings
+    ///     in the database to determine their similarity.
+    ///     The result can be utilized both for search ranking and log analysis.
+    /// </summary>
+    /// <param name="a">The first embedding vector.</param>
+    /// <param name="b">The second embedding vector.</param>
+    /// <returns>The cosine distance (0 for identical vectors, 1 for orthogonal vectors).</returns>
+    /// <exception cref="ArgumentException">Thrown when the vectors have different lengths.</exception>
     private static double CosineDistance(float[] a, float[] b)
     {
         if (a.Length != b.Length)
